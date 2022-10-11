@@ -12,100 +12,58 @@
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="3">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp">
-
+                    android:layout_margin="4dp"
+                    android:layout_weight="1">
                     <Button
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:contentDescription="@string/shuffle_btn"
                         android:drawableTop="@drawable/ic_shuffle"
                         android:layout_margin="4dp"
-                        style="@style/Widget.AppCompat.Button.Borderless"/>
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:text="@string/shuffle_btn"
+                        android:textColor="@color/black"/>
                 </androidx.cardview.widget.CardView>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/shuffle_btn"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:layout_weight="1"
-                    android:layout_margin="4dp"
-                    android:textAlignment="center" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:layout_margin="4dp">
-
                     <Button
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:contentDescription="@string/shuffle_btn"
                         android:drawableTop="@drawable/ic_fav"
                         android:layout_margin="4dp"
-                        style="@style/Widget.AppCompat.Button.Borderless"/>
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:text="@string/favourites_btn"
+                        android:textColor="@color/black"/>
                 </androidx.cardview.widget.CardView>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/favourites_btn"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:layout_weight="1"
-                    android:layout_margin="4dp"
-                    android:textAlignment="center" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
                 <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="4dp">
+                    android:layout_margin="4dp"
+                    android:layout_weight="1">
 
                     <Button
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="match_parent"
                         android:contentDescription="@string/playlist_btn"
                         android:drawableTop="@drawable/ic_playlist"
                         android:layout_margin="4dp"
-                        style="@style/Widget.AppCompat.Button.Borderless"/>
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:textColor="@color/black"
+                        android:text="@string/playlist_btn"/>
                 </androidx.cardview.widget.CardView>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/playlist_btn"
-                    android:fontFamily="sans-serif-light"
-                    android:textSize="18sp"
-                    android:layout_weight="1"
-                    android:layout_margin="4dp"
-                    android:textAlignment="center" />
             </LinearLayout>
-
-            
-
         </LinearLayout>
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
