@@ -37,15 +37,15 @@
     <androidx.cardview.widget.CardView
         android:layout_width="250dp"
         android:layout_height="250dp"
-        android:layout_margin="70dp"
         android:layout_gravity="center_horizontal"
         app:cardElevation="10dp"
-        app:cardCornerRadius="5dp">
+        app:cardCornerRadius="5dp"
+        android:layout_marginTop="50dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/musicPic"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="244dp"
             android:layout_gravity="center" />
 
     </androidx.cardview.widget.CardView>
@@ -57,6 +57,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="song name"
+        android:layout_marginTop="15dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:fontFamily="sans-serif-light"
@@ -99,7 +100,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="25dp">
 
         <ImageButton
             android:id="@+id/timer"
@@ -110,7 +112,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/equalizer"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_marginBottom="15dp"
+/>
 
         <ImageButton
             android:id="@+id/equalizer"
@@ -120,8 +123,9 @@
             android:src="@drawable/ic_equalizer"
             app:layout_constraintStart_toEndOf="@id/timer"
             app:layout_constraintEnd_toEndOf="@id/repeat"
+            android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+/>
 
         <ImageButton
             android:id="@+id/repeat"
@@ -132,7 +136,7 @@
             app:layout_constraintStart_toEndOf="@id/equalizer"
             app:layout_constraintEnd_toStartOf="@id/share"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_marginBottom="15dp"/>
 
         <ImageButton
             android:id="@+id/share"
@@ -143,6 +147,6 @@
             app:layout_constraintStart_toEndOf="@id/repeat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_marginBottom="15dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

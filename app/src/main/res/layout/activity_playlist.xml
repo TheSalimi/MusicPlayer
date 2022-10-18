@@ -19,9 +19,10 @@
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Playlist"
+        android:text="@string/playlist"
         android:textSize="24sp"
-        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="8dp"
         app:layout_constraintStart_toEndOf="@id/backFromPlayList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/backFromPlayList"
