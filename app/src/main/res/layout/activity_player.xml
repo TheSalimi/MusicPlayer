@@ -105,7 +105,7 @@
             android:id="@+id/timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="tran"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_timer"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/equalizer"
