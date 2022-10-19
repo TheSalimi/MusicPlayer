@@ -6,4 +6,11 @@
     <string name="world_of_music">World of Music</string>
     <string name="playlist">Playlist</string>
     <string name="favorites">Favorites</string>
+    <string name="Open">Open</string>
+    <string name="Close">Close</string>
+    <string name="exit">Exit</string>
+    <string name="about">About</string>
+    <string name="setting">Setting</string>
+    <string name="feedback">Feedback</string>
+
 </resources>
