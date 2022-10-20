@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         requestRunTimePermission()
 
-        toggle = ActionBarDrawerToggle(this , drawerLayout , R.string.Open , R.string.Close )
+        toggle = ActionBarDrawerToggle(this , drawerLayout, toolbar , R.string.Open , R.string.Close )
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
