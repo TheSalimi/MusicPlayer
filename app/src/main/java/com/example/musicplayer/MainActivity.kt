@@ -10,6 +10,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
 import com.example.musicplayer.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -39,6 +40,16 @@ class MainActivity : AppCompatActivity() {
         playlistButton.setOnClickListener {
             val intent = Intent(this@MainActivity, playlistActivity::class.java)
             startActivity(intent)
+        }
+
+        navView.setNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.feedback -> Toast.makeText(this, "feedback" , Toast.LENGTH_SHORT).show()
+                R.id.setting -> Toast.makeText(this, "setting" , Toast.LENGTH_SHORT).show()
+                R.id.about -> Toast.makeText(this, "about" , Toast.LENGTH_SHORT).show()
+                R.id.exit -> exitProcess(1)
+            }
+            true
         }
     }
 
