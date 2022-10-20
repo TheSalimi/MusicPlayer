@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicplayer.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.system.exitProcess
@@ -15,17 +16,10 @@ import kotlin.system.exitProcess
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var toggle : ActionBarDrawerToggle
+    private lateinit var musicAdapeter : MusicAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        requestRunTimePermission()
-
-        toggle = ActionBarDrawerToggle(this , drawerLayout, toolbar , R.string.Open , R.string.Close )
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        initialazation()
 
         shuffleButton.setOnClickListener {
             val intent = Intent(this@MainActivity, PlayerActivity::class.java)
@@ -78,5 +72,28 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if(toggle.onOptionsItemSelected(item)) return true
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun initialazation(){
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        requestRunTimePermission()
+        toggle = ActionBarDrawerToggle(this , drawerLayout, toolbar , R.string.Open , R.string.Close )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        val musicList = ArrayList<String>()
+
+        for (i in 0..4){
+        musicList.add("${i} song" )
+        }
+
+        recyclerView.setHasFixedSize(true)
+        recyclerView.setItemViewCacheSize(13)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+        musicAdapeter = MusicAdapter(this , musicList )
+        recyclerView.adapter = musicAdapeter
+        totalSongs.text = "total songs : ${musicList.size}"
     }
 }

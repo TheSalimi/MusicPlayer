@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="5dp"
-    android:background="@drawable/borderbottom">
+    android:background="@drawable/borderbottom"
+    android:layout_marginBottom="5dp">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/musicImage"
@@ -25,11 +26,14 @@
         android:text="music name"
         android:layout_toRightOf="@id/musicImage"
         android:layout_toLeftOf="@id/musicLength"
+        android:ellipsize="end"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:textSize="16sp"
         android:textColor="@color/black"
-        android:fontFamily="@font/wonderbar_demo"/>
+        android:fontFamily="@font/wonderbar_demo"
+        android:gravity="center_vertical"
+        android:maxLines="1"/>
 
     <TextView
         android:id="@+id/musicLength"
@@ -44,13 +48,15 @@
         android:textColor="@color/black"
         android:textSize="14sp" />
 
-    <TextClock
+    <TextView
+        android:id="@+id/subTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/musicName"
         android:layout_toRightOf="@id/musicImage"
         android:layout_marginStart="5dp"
         android:text="felan felan shode"
+        android:maxLines="1"
         android:layout_marginEnd="5dp"
         android:layout_marginTop="2dp"
         android:textColor="#808080"
