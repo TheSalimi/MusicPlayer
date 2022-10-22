@@ -3,6 +3,7 @@ package com.example.musicplayer
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -147,7 +148,11 @@ class MainActivity : AppCompatActivity() {
                         cursor.getString((cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)))
                     val pathC =
                         cursor.getString((cursor.getColumnIndex(MediaStore.Audio.Media.DATA)))
-                    val music = Music(idC , titleC , albumC , artistC , durationC.toLong() , pathC)
+                    val albumIdC = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)).toString()
+                    val uri = Uri.parse("content://media/external/audio/albumart")
+                    val artUriC = Uri.withAppendedPath(uri , albumIdC).toString()
+                    val music = Music(idC , titleC , albumC , artistC , durationC.toLong() , pathC ,  artUriC)
+
                     val file = File(music.path)
                     if(file.exists()){
                         tempList.add(music)

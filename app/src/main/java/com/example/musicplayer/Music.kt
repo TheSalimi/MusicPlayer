@@ -6,7 +6,8 @@ class Music(
     val album: String,
     val artist: String,
     val duration: Long = 0,
-    val path: String
+    val path: String,
+    val artUri : String
 ) {
 
 }
