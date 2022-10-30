@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var musicAdapeter: MusicAdapter
 
-    companion object{
-        private lateinit var musicList : ArrayList<Music>
+    companion object {
+        private lateinit var musicList: ArrayList<Music>
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -114,7 +114,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @SuppressLint("Range")
-    private fun getAllAudio() : ArrayList<Music> {
+    private fun getAllAudio(): ArrayList<Music> {
         val tempList = ArrayList<Music>()
         val selection = MediaStore.Audio.Media.IS_MUSIC + " != 0"
         val projection = arrayOf(
@@ -124,7 +124,8 @@ class MainActivity : AppCompatActivity() {
             MediaStore.Audio.Media.ARTIST,
             MediaStore.Audio.Media.DURATION,
             MediaStore.Audio.Media.DATE_ADDED,
-            MediaStore.Audio.Media.DATA
+            MediaStore.Audio.Media.DATA,
+            MediaStore.Audio.Media.ALBUM_ID
         )
         val cursor = this.contentResolver.query(
             MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
@@ -148,13 +149,17 @@ class MainActivity : AppCompatActivity() {
                         cursor.getString((cursor.getColumnIndex(MediaStore.Audio.Media.DURATION)))
                     val pathC =
                         cursor.getString((cursor.getColumnIndex(MediaStore.Audio.Media.DATA)))
-                    val albumIdC = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID)).toString()
+                    val albumIdC =
+                        cursor.getLong(cursor.getColumnIndex(MediaStore.Audio.Media.ALBUM_ID))
+                            .toString()
+
                     val uri = Uri.parse("content://media/external/audio/albumart")
-                    val artUriC = Uri.withAppendedPath(uri , albumIdC).toString()
-                    val music = Music(idC , titleC , albumC , artistC , durationC.toLong() , pathC ,  artUriC)
+                    val artUriC = Uri.withAppendedPath(uri, albumIdC).toString()
+                    val music =
+                        Music(idC, titleC, albumC, artistC, durationC.toLong(), pathC, artUriC)
 
                     val file = File(music.path)
-                    if(file.exists()){
+                    if (file.exists()) {
                         tempList.add(music)
                     }
                 } while (cursor.moveToNext())

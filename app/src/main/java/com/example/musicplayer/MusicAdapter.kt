@@ -25,14 +25,9 @@ class MusicAdapter(private val context: Context, private val musicList: ArrayLis
         holder.titile.text = musicList[position].title
         holder.subTitle.text = musicList[position].album
         holder.length.text = musicList[position].duration.toString()
-        Glide.with(context).load(
-            musicList[position].artUri
-        ).apply(
-            RequestOptions()
-                .centerCrop()
-        ).into(holder.image)
-    }
 
+        Glide.with(context).load(musicList[position].artUri).into(holder.image)
+    }
     override fun getItemCount(): Int = musicList.size
 
 }
