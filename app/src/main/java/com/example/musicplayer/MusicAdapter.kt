@@ -1,8 +1,10 @@
 package com.example.musicplayer
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -15,6 +17,7 @@ class MusicAdapter(private val context: Context, private val musicList: ArrayLis
         val subTitle = binding.subTitle
         val image = binding.musicImage
         val length = binding.musicLength
+        val root = binding.root
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicAdapter.myHolder {
@@ -24,9 +27,13 @@ class MusicAdapter(private val context: Context, private val musicList: ArrayLis
     override fun onBindViewHolder(holder: myHolder, position: Int) {
         holder.titile.text = musicList[position].title
         holder.subTitle.text = musicList[position].album
-        holder.length.text = musicList[position].duration.toString()
+        holder.length.text = formatDuration( musicList[position].duration)
 
         Glide.with(context).load(musicList[position].artUri).into(holder.image)
+        holder.root.setOnClickListener{
+            val intent = Intent(context , PlayerActivity::class.java)
+            ContextCompat.startActivity(context , intent , null)
+        }
     }
     override fun getItemCount(): Int = musicList.size
 
