@@ -24,7 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var musicAdapeter: MusicAdapter
 
     companion object {
-        private lateinit var musicList: ArrayList<Music>
+        lateinit var musicList: ArrayList<Music>
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

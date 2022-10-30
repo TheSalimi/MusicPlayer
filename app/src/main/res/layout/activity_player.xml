@@ -40,7 +40,9 @@
         android:layout_gravity="center_horizontal"
         app:cardElevation="10dp"
         app:cardCornerRadius="5dp"
-        android:layout_marginTop="50dp">
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp">
+
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/musicPic"
@@ -57,7 +59,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="song name"
-        android:layout_marginTop="15dp"
+        android:layout_margin="15dp"
+        android:layout_marginTop="30dp"
         android:ellipsize="end"
         android:maxLines="1"
         android:fontFamily="sans-serif-light"
@@ -79,9 +82,10 @@
             android:layout_marginTop="5dp" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/playPauseButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:icon="@drawable/ic_pause"
+            app:icon="@drawable/ic_play"
             android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp"
             android:backgroundTint="@color/white" />
