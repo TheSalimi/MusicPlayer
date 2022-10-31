@@ -25,6 +25,14 @@ class PlayerActivity : AppCompatActivity() {
             if (isPlaying) pause()
             else playMusic()
         }
+
+        nextBtn.setOnClickListener {
+            preOrNextSong(true)
+        }
+
+        preBtn.setOnClickListener {
+            preOrNextSong(false)
+        }
     }
 
     private fun initializeLayout() {
@@ -47,15 +55,16 @@ class PlayerActivity : AppCompatActivity() {
 
     private fun creatMediaPlayer() {
         try {
-            if (mediaPlayer == null) {
+            if (mediaPlayer == null)
                 mediaPlayer = MediaPlayer()
-                mediaPlayer!!.reset()
-                mediaPlayer!!.setDataSource(musicListPA[songPosition].path)
-                mediaPlayer!!.prepare()
-                mediaPlayer!!.start()
-                isPlaying = true
-                playPauseButton.setIconResource(R.drawable.ic_pause)
-            }
+
+            mediaPlayer!!.reset()
+            mediaPlayer!!.setDataSource(musicListPA[songPosition].path)
+            mediaPlayer!!.prepare()
+            mediaPlayer!!.start()
+            isPlaying = true
+            playPauseButton.setIconResource(R.drawable.ic_pause)
+
         } catch (E: java.lang.Exception) {
             return
         }
@@ -71,5 +80,31 @@ class PlayerActivity : AppCompatActivity() {
         playPauseButton.setIconResource(R.drawable.ic_play)
         isPlaying = false
         mediaPlayer!!.pause()
+    }
+
+    private fun preOrNextSong(increment: Boolean) {
+        if (increment) {
+            setSongPosition(increment)
+            setLayout()
+            creatMediaPlayer()
+        } else {
+            setSongPosition(increment)
+            setLayout()
+            creatMediaPlayer()
+        }
+    }
+
+    private fun setSongPosition(increment: Boolean) {
+        if (increment) {
+            if (musicListPA.size - 1 == songPosition)
+                songPosition = 0
+            else
+                ++songPosition
+        } else {
+            if (songPosition == 0) {
+                songPosition = musicListPA.size - 1
+            } else
+                --songPosition
+        }
     }
 }
