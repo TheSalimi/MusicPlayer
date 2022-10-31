@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity() {
 
         shuffleButton.setOnClickListener {
             val intent = Intent(this@MainActivity, PlayerActivity::class.java)
+            intent.putExtra("index" , 0)
+            intent.putExtra("class" , "MainActivity")
             startActivity(intent)
         }
 
