@@ -29,12 +29,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initialazation()
+
+        requestRunTimePermission()
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.Open, R.string.Close)
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        if (requestRunTimePermission())
+            initialazation()
 
         shuffleButton.setOnClickListener {
             val intent = Intent(this@MainActivity, PlayerActivity::class.java)
-            intent.putExtra("index" , 0)
-            intent.putExtra("class" , "MainActivity")
+            intent.putExtra("index", 0)
+            intent.putExtra("class", "MainActivity")
             startActivity(intent)
         }
 
@@ -59,7 +69,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun requestRunTimePermission() {
+    private fun requestRunTimePermission(): Boolean {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -70,7 +80,9 @@ class MainActivity : AppCompatActivity() {
                 arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE),
                 13
             )
+            return false
         }
+        return true
     }
 
     override fun onRequestPermissionsResult(
@@ -82,6 +94,7 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == 13) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 Toast.makeText(this, "Perimission granted", Toast.LENGTH_SHORT).show()
+                initialazation()
             } else {
                 ActivityCompat.requestPermissions(
                     this,
@@ -99,13 +112,6 @@ class MainActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun initialazation() {
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-        requestRunTimePermission()
-        toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.Open, R.string.Close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         musicList = getAllAudio()
         recyclerView.setHasFixedSize(true)
         recyclerView.setItemViewCacheSize(13)
