@@ -10,6 +10,7 @@ class ApplicationClass : Application() {
     companion object{
         const val CHANNEL_ID = "channel1"
         const val PLAY = "play"
+        const val NEXT = "next"
         const val PREVIOUS = "previous"
         const val EXIT = "exit"
     }
@@ -21,7 +22,6 @@ class ApplicationClass : Application() {
             notificationChannel.description = "this is a important channel for showing song"
             val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(notificationChannel)
-
         }
     }
 }

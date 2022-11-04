@@ -59,6 +59,8 @@
                 android:value="" />
         </activity>
         <service android:name=".MusicService"/>
+        <receiver android:name=".NotificatinReciever"
+            android:enabled="true"/>
     </application>
 
 </manifest>
