@@ -1,5 +1,6 @@
 package com.example.musicplayer
 
+import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
@@ -11,22 +12,29 @@ import android.provider.MediaStore.Audio.Media
 import android.text.BoringLayout
 import androidx.core.app.ServiceCompat
 import com.bumptech.glide.Glide
+import com.example.musicplayer.databinding.ActivityPlayerBinding
 import kotlinx.android.synthetic.main.activity_player.*
 
-class PlayerActivity : AppCompatActivity() ,ServiceConnection {
+class PlayerActivity : AppCompatActivity(), ServiceConnection {
 
     companion object {
         lateinit var musicListPA: ArrayList<Music>
         var songPosition: Int = 0
         var isPlaying: Boolean = false
-        var musicService : MusicService?=null
+        var musicService: MusicService? = null
+
+        @SuppressLint("StaticFieldLeak")
+        lateinit var binding: ActivityPlayerBinding
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_player)
+        binding = ActivityPlayerBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        startService()
+        val intent = Intent(this, MusicService::class.java)
+        bindService(intent, this, BIND_AUTO_CREATE)
+        startService(intent)
         initializeLayout()
 
         playPauseButton.setOnClickListener {
@@ -43,13 +51,14 @@ class PlayerActivity : AppCompatActivity() ,ServiceConnection {
         }
     }
 
-    private fun startService(){
-        val intent = Intent(this , MusicService::class.java)
-        bindService(intent , this , BIND_AUTO_CREATE)
+    private fun startService() {
+        val intent = Intent(this, MusicService::class.java)
+        bindService(intent, this, BIND_AUTO_CREATE)
         startService(intent)
     }
 
     private fun initializeLayout() {
+
         songPosition = intent.getIntExtra("index", 0)
         when (intent.getStringExtra("class")) {
             "MusicAdapter" -> {
@@ -57,7 +66,7 @@ class PlayerActivity : AppCompatActivity() ,ServiceConnection {
                 musicListPA.addAll(MainActivity.musicList)
                 setLayout()
             }
-            "MainActivity"->{
+            "MainActivity" -> {
                 musicListPA = ArrayList()
                 musicListPA.addAll(MainActivity.musicList)
                 musicListPA.shuffle()
@@ -91,12 +100,14 @@ class PlayerActivity : AppCompatActivity() ,ServiceConnection {
 
     private fun playMusic() {
         playPauseButton.setIconResource(R.drawable.ic_pause)
+        musicService!!.showNotification(R.drawable.ic_pause)
         isPlaying = true
         musicService!!.mediaPlayer!!.start()
     }
 
     private fun pause() {
         playPauseButton.setIconResource(R.drawable.ic_play)
+        musicService!!.showNotification(R.drawable.ic_play)
         isPlaying = false
         musicService!!.mediaPlayer!!.pause()
     }
@@ -131,7 +142,7 @@ class PlayerActivity : AppCompatActivity() ,ServiceConnection {
         val binder = service as MusicService.MyBinder
         musicService = binder.currentService()
         creatMediaPlayer()
-        musicService!!.showNotification()
+        musicService!!.showNotification(R.drawable.ic_pause)
     }
 
     override fun onServiceDisconnected(name: ComponentName?) {
