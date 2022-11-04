@@ -76,12 +76,19 @@ class MusicService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
+        val imageArt = getImgArt(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
+
+        val image = if(imageArt != null){
+            BitmapFactory.decodeByteArray(imageArt , 0 , imageArt.size)
+        } else {
+            BitmapFactory.decodeResource( resources , R.drawable.musicplayer_icon)
+        }
 
         val notifiction = NotificationCompat.Builder(baseContext, ApplicationClass.CHANNEL_ID)
             .setContentTitle(PlayerActivity.musicListPA[PlayerActivity.songPosition].title)
             .setContentText(PlayerActivity.musicListPA[PlayerActivity.songPosition].artist)
             .setSmallIcon(R.drawable.splash_screen)
-            .setLargeIcon(BitmapFactory.decodeResource(resources, R.drawable.splash_screen))
+            .setLargeIcon(image)
             .setStyle(
                 androidx.media.app.NotificationCompat.MediaStyle()
                     .setMediaSession(mediaSession.sessionToken)
