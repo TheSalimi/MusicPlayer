@@ -13,6 +13,7 @@ import android.os.IBinder
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import com.example.musicplayer.ApplicationClass.Companion.CHANNEL_ID
+import kotlinx.android.synthetic.main.activity_player.*
 
 class MusicService : Service() {
     private var myBinder = MyBinder()
@@ -77,7 +78,6 @@ class MusicService : Service() {
         )
 
         val imageArt = getImgArt(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
-
         val image = if(imageArt != null){
             BitmapFactory.decodeByteArray(imageArt , 0 , imageArt.size)
         } else {
@@ -103,5 +103,20 @@ class MusicService : Service() {
             .build()
 
         startForeground(13, notifiction)
+    }
+
+    fun creatMediaPlayer() {
+        try {
+            if (PlayerActivity.musicService!!.mediaPlayer == null)
+                PlayerActivity.musicService!!.mediaPlayer = MediaPlayer()
+
+            PlayerActivity.musicService!!.mediaPlayer!!.reset()
+            PlayerActivity.musicService!!.mediaPlayer!!.setDataSource(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
+            PlayerActivity.musicService!!.mediaPlayer!!.prepare()
+            PlayerActivity.binding.playPauseButton.setIconResource(R.drawable.ic_pause)
+            PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause)
+        } catch (E: java.lang.Exception) {
+            return
+        }
     }
 }

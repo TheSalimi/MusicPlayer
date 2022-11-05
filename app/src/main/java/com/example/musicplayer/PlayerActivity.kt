@@ -81,7 +81,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection {
         songName.text = musicListPA[songPosition].title.toString()
     }
 
-    private fun creatMediaPlayer() {
+    fun creatMediaPlayer() {
         try {
             if (musicService!!.mediaPlayer == null)
                 musicService!!.mediaPlayer = MediaPlayer()
@@ -92,7 +92,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection {
             musicService!!.mediaPlayer!!.start()
             isPlaying = true
             playPauseButton.setIconResource(R.drawable.ic_pause)
-
+            musicService!!.showNotification(R.drawable.ic_pause)
         } catch (E: java.lang.Exception) {
             return
         }
@@ -124,25 +124,10 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection {
         }
     }
 
-    private fun setSongPosition(increment: Boolean) {
-        if (increment) {
-            if (musicListPA.size - 1 == songPosition)
-                songPosition = 0
-            else
-                ++songPosition
-        } else {
-            if (songPosition == 0) {
-                songPosition = musicListPA.size - 1
-            } else
-                --songPosition
-        }
-    }
-
     override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
         val binder = service as MusicService.MyBinder
         musicService = binder.currentService()
         creatMediaPlayer()
-        musicService!!.showNotification(R.drawable.ic_pause)
     }
 
     override fun onServiceDisconnected(name: ComponentName?) {
