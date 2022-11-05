@@ -115,6 +115,11 @@ class MusicService : Service() {
             PlayerActivity.musicService!!.mediaPlayer!!.prepare()
             PlayerActivity.binding.playPauseButton.setIconResource(R.drawable.ic_pause)
             PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause)
+
+            PlayerActivity.binding.SeekBarStartTime.text = formatDuration(PlayerActivity.musicService!!.mediaPlayer!!.currentPosition.toLong())
+            PlayerActivity.binding.SeekBarEndTime.text = formatDuration(PlayerActivity.musicService!!.mediaPlayer!!.duration.toLong())
+            PlayerActivity.binding.SeekBar.progress = 0
+            PlayerActivity.binding.SeekBar.max = PlayerActivity.musicService!!.mediaPlayer!!.duration
         } catch (E: java.lang.Exception) {
             return
         }
