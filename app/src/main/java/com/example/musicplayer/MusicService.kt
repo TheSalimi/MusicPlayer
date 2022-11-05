@@ -9,7 +9,9 @@ import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Binder
+import android.os.Handler
 import android.os.IBinder
+import android.os.Looper
 import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import com.example.musicplayer.ApplicationClass.Companion.CHANNEL_ID
@@ -19,6 +21,7 @@ class MusicService : Service() {
     private var myBinder = MyBinder()
     var mediaPlayer: MediaPlayer? = null
     private lateinit var mediaSession: MediaSessionCompat
+    private lateinit var runnable : Runnable
 
     override fun onBind(intent: Intent?): IBinder? {
         mediaSession = MediaSessionCompat(baseContext, "My Music")
@@ -116,12 +119,22 @@ class MusicService : Service() {
             PlayerActivity.binding.playPauseButton.setIconResource(R.drawable.ic_pause)
             PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause)
 
-            PlayerActivity.binding.SeekBarStartTime.text = formatDuration(PlayerActivity.musicService!!.mediaPlayer!!.currentPosition.toLong())
-            PlayerActivity.binding.SeekBarEndTime.text = formatDuration(PlayerActivity.musicService!!.mediaPlayer!!.duration.toLong())
+            PlayerActivity.binding.SeekBarStartTime.text = formatDuration(mediaPlayer!!.currentPosition.toLong())
+            PlayerActivity.binding.SeekBarEndTime.text = formatDuration(mediaPlayer!!.duration.toLong())
             PlayerActivity.binding.SeekBar.progress = 0
-            PlayerActivity.binding.SeekBar.max = PlayerActivity.musicService!!.mediaPlayer!!.duration
+            PlayerActivity.binding.SeekBar.max = mediaPlayer!!.duration
         } catch (E: java.lang.Exception) {
             return
         }
+    }
+
+    fun seekBarSetup(){
+        runnable = Runnable {
+            PlayerActivity.binding.SeekBarStartTime.text = formatDuration(mediaPlayer!!.currentPosition.toLong())
+            PlayerActivity.binding.SeekBar.progress = mediaPlayer!!.currentPosition
+            Handler(Looper.getMainLooper())
+                .postDelayed(runnable , 200)
+        }
+        Handler(Looper.getMainLooper()).postDelayed(runnable , 0)
     }
 }

@@ -143,6 +143,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection {
         val binder = service as MusicService.MyBinder
         musicService = binder.currentService()
         creatMediaPlayer()
+        musicService!!.seekBarSetup()
     }
 
     override fun onServiceDisconnected(name: ComponentName?) {
