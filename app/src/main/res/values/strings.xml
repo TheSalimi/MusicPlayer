@@ -12,5 +12,12 @@
     <string name="about">About</string>
     <string name="setting">Setting</string>
     <string name="feedback">Feedback</string>
+    <string name="equalizer">Equalizer</string>
+    <string name="repeatsong">repeatSong</string>
+    <string name="share">share</string>
+    <string name="timer">timer</string>
+    <string name="song_name">song name</string>
+    <string name="back">back</string>
+    <string name="favorite">favorite</string>
 
 </resources>

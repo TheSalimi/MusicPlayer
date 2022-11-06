@@ -13,8 +13,8 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-
         <ImageButton
+            android:id="@+id/BackToPreviousPageBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,9 +22,11 @@
             android:background="@android:color/transparent"
             android:layout_marginStart="16dp"
             android:src="@drawable/ic_back"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/back"/>
 
         <ImageButton
+            android:id="@+id/addToFavorites"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -32,7 +34,8 @@
             android:background="@android:color/transparent"
             android:src="@drawable/ic_fav_black"
             android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:contentDescription="@string/favorite"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -67,7 +70,8 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:fontFamily="sans-serif-light"
-        android:textSize="24sp" />
+        android:textSize="24sp"
+        android:contentDescription="@string/song_name"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -132,8 +136,8 @@
                 android:id="@+id/SeekBarEndTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="00:00"
                 android:layout_marginEnd="16dp"
+                android:text="03:00"
                 android:layout_alignParentEnd="true"/>
 
 
@@ -159,6 +163,7 @@
             app:layout_constraintEnd_toStartOf="@id/equalizer"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginBottom="15dp"
+            android:contentDescription="@string/timer"
 />
 
         <ImageButton
@@ -171,6 +176,7 @@
             app:layout_constraintEnd_toEndOf="@id/repeat"
             android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/equalizer"
 />
 
         <ImageButton
@@ -182,7 +188,8 @@
             app:layout_constraintStart_toEndOf="@id/equalizer"
             app:layout_constraintEnd_toStartOf="@id/share"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="15dp"
+            android:contentDescription="@string/repeatsong"/>
 
         <ImageButton
             android:id="@+id/share"
@@ -193,6 +200,7 @@
             app:layout_constraintStart_toEndOf="@id/repeat"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="15dp"/>
+            android:layout_marginBottom="15dp"
+            android:contentDescription="@string/share"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

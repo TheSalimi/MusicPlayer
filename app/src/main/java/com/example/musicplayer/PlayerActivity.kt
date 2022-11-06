@@ -39,6 +39,10 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         startService()
         initializeLayout()
 
+        BackToPreviousPageBtn.setOnClickListener{
+            finish()
+        }
+
         playPauseButton.setOnClickListener {
             if (isPlaying) pause()
             else playMusic()
