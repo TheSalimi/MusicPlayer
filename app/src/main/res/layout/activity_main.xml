@@ -32,16 +32,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/linearLayout"
-            android:layout_below="@id/totalSongs" />
+            android:layout_below="@id/totalSongs"
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@drawable/ic_scrollbar"/>
+
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="2dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:elevation="5dp"
+            android:background="@drawable/rectangleforbottomofmain">
 
             <Button
                 android:id="@+id/favoriteButton"
