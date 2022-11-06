@@ -3,6 +3,7 @@ package com.example.musicplayer
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,9 +11,11 @@ import android.provider.MediaStore
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicplayer.databinding.ActivityMainBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.util.MissingFormatArgumentException
@@ -63,7 +66,27 @@ class MainActivity : AppCompatActivity() {
                 R.id.feedback -> Toast.makeText(this, "feedback", Toast.LENGTH_SHORT).show()
                 R.id.setting -> Toast.makeText(this, "setting", Toast.LENGTH_SHORT).show()
                 R.id.about -> Toast.makeText(this, "about", Toast.LENGTH_SHORT).show()
-                R.id.exit -> exitProcess(1)
+                R.id.exit -> {
+                    val builder = MaterialAlertDialogBuilder(this)
+                    builder.setTitle("Exit")
+                        .setPositiveButton("Yes"){
+                            _,_ ->
+                            if(PlayerActivity.musicService!=null) {
+                                PlayerActivity.musicService!!.stopForeground(true)
+                                PlayerActivity.musicService!!.mediaPlayer!!.release()
+                                PlayerActivity.musicService = null
+                            }
+                            exitProcess(1)
+                        }
+                        .setNegativeButton("No"){
+                            dialog,_->
+                            dialog.dismiss()
+                        }
+                    val customDialog = builder.create()
+                    customDialog.show()
+                    customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
+                    customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+                }
             }
             true
         }
