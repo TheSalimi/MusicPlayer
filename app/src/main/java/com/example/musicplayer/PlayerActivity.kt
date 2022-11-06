@@ -17,7 +17,7 @@ import com.bumptech.glide.Glide
 import com.example.musicplayer.databinding.ActivityPlayerBinding
 import kotlinx.android.synthetic.main.activity_player.*
 
-class PlayerActivity : AppCompatActivity(), ServiceConnection {
+class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCompletionListener {
 
     companion object {
         lateinit var musicListPA: ArrayList<Music>
@@ -52,12 +52,13 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection {
             preOrNextSong(false)
         }
 
-        SeekBar.setOnSeekBarChangeListener(object  : OnSeekBarChangeListener{
+        SeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) musicService!!.mediaPlayer!!.seekTo(progress)
             }
+
             override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
-            override fun onStopTrackingTouch(seekBar: SeekBar?) =Unit
+            override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
         })
     }
 
@@ -104,10 +105,12 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection {
             playPauseButton.setIconResource(R.drawable.ic_pause)
             musicService!!.showNotification(R.drawable.ic_pause)
 
-            SeekBarStartTime.text = formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
+            SeekBarStartTime.text =
+                formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
             SeekBarEndTime.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
             SeekBar.progress = 0
             SeekBar.max = musicService!!.mediaPlayer!!.duration
+            musicService!!.mediaPlayer!!.setOnCompletionListener(this)
         } catch (E: java.lang.Exception) {
             return
         }
@@ -148,5 +151,15 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection {
 
     override fun onServiceDisconnected(name: ComponentName?) {
         musicService = null
+    }
+
+    override fun onCompletion(mp: MediaPlayer?) {
+        setSongPosition(true)
+        creatMediaPlayer()
+        try {
+            setLayout()
+        } catch (e: Exception) {
+            return
+        }
     }
 }
