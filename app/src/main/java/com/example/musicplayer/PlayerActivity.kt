@@ -13,6 +13,7 @@ import android.text.BoringLayout
 import android.widget.SeekBar
 import android.widget.SeekBar.*
 import androidx.core.app.ServiceCompat
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.musicplayer.databinding.ActivityPlayerBinding
 import kotlinx.android.synthetic.main.activity_player.*
@@ -27,6 +28,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
         @SuppressLint("StaticFieldLeak")
         lateinit var binding: ActivityPlayerBinding
+        var repeatSong : Boolean = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +36,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val intent = Intent(this, MusicService::class.java)
-        bindService(intent, this, BIND_AUTO_CREATE)
-        startService(intent)
+        startService()
         initializeLayout()
 
         playPauseButton.setOnClickListener {
@@ -60,6 +60,16 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
             override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
         })
+        repeat.setOnClickListener{
+            if(!repeatSong){
+                repeatSong = true
+                repeat.setColorFilter(ContextCompat.getColor(this , R.color.gray))
+            }
+            else{
+                repeatSong = false
+                repeat.setColorFilter(ContextCompat.getColor(this , R.color.black ))
+            }
+        }
     }
 
     private fun startService() {
@@ -90,6 +100,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         Glide.with(this).load(musicListPA[songPosition].artUri)
             .into(musicPic)
         songName.text = musicListPA[songPosition].title.toString()
+        if(repeatSong) repeat.setColorFilter(ContextCompat.getColor(this , R.color.gray))
     }
 
     fun creatMediaPlayer() {
