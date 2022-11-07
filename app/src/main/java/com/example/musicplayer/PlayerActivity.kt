@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
 import android.media.MediaPlayer
+import android.media.audiofx.AudioEffect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
@@ -12,6 +13,7 @@ import android.provider.MediaStore.Audio.Media
 import android.text.BoringLayout
 import android.widget.SeekBar
 import android.widget.SeekBar.*
+import android.widget.Toast
 import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -28,7 +30,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
         @SuppressLint("StaticFieldLeak")
         lateinit var binding: ActivityPlayerBinding
-        var repeatSong : Boolean = false
+        var repeatSong: Boolean = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +41,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         startService()
         initializeLayout()
 
-        BackToPreviousPageBtn.setOnClickListener{
+        BackToPreviousPageBtn.setOnClickListener {
             finish()
         }
 
@@ -64,15 +66,38 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             override fun onStartTrackingTouch(seekBar: SeekBar?) = Unit
             override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
         })
-        repeat.setOnClickListener{
-            if(!repeatSong){
-                repeatSong = true
-                repeat.setColorFilter(ContextCompat.getColor(this , R.color.gray))
-            }
-            else{
-                repeatSong = false
-                repeat.setColorFilter(ContextCompat.getColor(this , R.color.black ))
-            }
+
+        repeat.setOnClickListener {
+            repeatItem()
+        }
+
+        equalizer.setOnClickListener {
+            setEqualizer()
+        }
+    }
+
+    private fun setEqualizer(){
+        try {
+            val EqIntent = Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
+            EqIntent.putExtra(
+                AudioEffect.EXTRA_AUDIO_SESSION,
+                musicService!!.mediaPlayer!!.audioSessionId
+            )
+            EqIntent.putExtra(AudioEffect.EXTRA_PACKAGE_NAME, baseContext.packageName)
+            EqIntent.putExtra(AudioEffect.EXTRA_CONTENT_TYPE, AudioEffect.CONTENT_TYPE_MUSIC)
+            startActivityForResult(EqIntent, 13)
+        } catch (e: java.lang.Exception) {
+            Toast.makeText(this, "Equalizer feature not supported", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun repeatItem() {
+        if (!repeatSong) {
+            repeatSong = true
+            repeat.setColorFilter(ContextCompat.getColor(this, R.color.gray))
+        } else {
+            repeatSong = false
+            repeat.setColorFilter(ContextCompat.getColor(this, R.color.black))
         }
     }
 
@@ -104,7 +129,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         Glide.with(this).load(musicListPA[songPosition].artUri)
             .into(musicPic)
         songName.text = musicListPA[songPosition].title.toString()
-        if(repeatSong) repeat.setColorFilter(ContextCompat.getColor(this , R.color.gray))
+        if (repeatSong) repeat.setColorFilter(ContextCompat.getColor(this, R.color.gray))
     }
 
     fun creatMediaPlayer() {
@@ -176,5 +201,11 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         } catch (e: Exception) {
             return
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode ==13 || resultCode == RESULT_OK)
+            return
     }
 }
