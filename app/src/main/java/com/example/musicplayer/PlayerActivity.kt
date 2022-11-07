@@ -18,7 +18,9 @@ import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.musicplayer.databinding.ActivityPlayerBinding
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.android.synthetic.main.activity_player.*
+import kotlinx.android.synthetic.main.bottom_sheet_dialog.*
 
 class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCompletionListener {
 
@@ -74,9 +76,13 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         equalizer.setOnClickListener {
             setEqualizer()
         }
+
+        timer.setOnClickListener {
+            showBottomSheetDialog()
+        }
     }
 
-    private fun setEqualizer(){
+    private fun setEqualizer() {
         try {
             val EqIntent = Intent(AudioEffect.ACTION_DISPLAY_AUDIO_EFFECT_CONTROL_PANEL)
             EqIntent.putExtra(
@@ -205,7 +211,24 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode ==13 || resultCode == RESULT_OK)
+        if (requestCode == 13 || resultCode == RESULT_OK)
             return
+    }
+
+    private fun showBottomSheetDialog() {
+        val dialog = BottomSheetDialog(this)
+        dialog.setContentView(R.layout.bottom_sheet_dialog)
+        dialog.show()
+        dialog.min15.setOnClickListener {
+            Toast.makeText(this, "Music will stop after 15 minutes", Toast.LENGTH_SHORT).show()
+        }
+
+        dialog.min30.setOnClickListener {
+            Toast.makeText(this, "Music will stop after 30 minutes", Toast.LENGTH_SHORT).show()
+        }
+
+        dialog.min60.setOnClickListener {
+            Toast.makeText(this, "Music will stop after 60 minutes", Toast.LENGTH_SHORT).show()
+        }
     }
 }
