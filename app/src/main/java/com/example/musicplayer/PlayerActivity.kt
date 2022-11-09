@@ -7,6 +7,7 @@ import android.content.ServiceConnection
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.media.audiofx.AudioEffect
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
@@ -51,22 +52,16 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         startService()
         initializeLayout()
 
-        BackToPreviousPageBtn.setOnClickListener {
-            finish()
-        }
+        BackToPreviousPageBtn.setOnClickListener { finish() }
 
         playPauseButton.setOnClickListener {
             if (isPlaying) pause()
             else playMusic()
         }
 
-        nextBtn.setOnClickListener {
-            preOrNextSong(true)
-        }
+        nextBtn.setOnClickListener { preOrNextSong(true) }
 
-        preBtn.setOnClickListener {
-            preOrNextSong(false)
-        }
+        preBtn.setOnClickListener { preOrNextSong(false) }
 
         SeekBar.setOnSeekBarChangeListener(object : OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
@@ -77,36 +72,44 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             override fun onStopTrackingTouch(seekBar: SeekBar?) = Unit
         })
 
-        repeat.setOnClickListener {
-            repeatItem()
-        }
+        repeat.setOnClickListener { repeatItem() }
 
-        equalizer.setOnClickListener {
-            setEqualizer()
-        }
+        equalizer.setOnClickListener { setEqualizer() }
 
-        timer.setOnClickListener {
-            val timer = _15min || _30min || _60min
-            if (!timer)
-                showBottomSheetDialog()
-            else {
-                val builder = MaterialAlertDialogBuilder(this)
-                builder.setTitle("Stop Timer")
-                    .setMessage("Do you want to stop timer?")
-                    .setPositiveButton("Yes") { _, _ ->
-                        _15min = false
-                        _30min = false
-                        _60min = false
-                        binding.timer.setColorFilter(ContextCompat.getColor(this,R.color.black))
-                    }
-                    .setNegativeButton("No") { dialog, _ ->
-                        dialog.dismiss()
-                    }
-                val customDialog = builder.create()
-                customDialog.show()
-                customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
-                customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
-            }
+        timer.setOnClickListener {setTimer()}
+
+        share.setOnClickListener { shareBtn() }
+    }
+
+    private fun shareBtn(){
+        val shareIntent = Intent()
+        shareIntent.action = Intent.ACTION_SEND
+        shareIntent.type = "audio/*"
+        shareIntent.putExtra(Intent.EXTRA_STREAM , Uri.parse(musicListPA[songPosition].path))
+        startActivity(Intent.createChooser(shareIntent , "Share"))
+    }
+
+    private fun setTimer(){
+        val timer = _15min || _30min || _60min
+        if (!timer)
+            showBottomSheetDialog()
+        else {
+            val builder = MaterialAlertDialogBuilder(this)
+            builder.setTitle("Stop Timer")
+                .setMessage("Do you want to stop timer?")
+                .setPositiveButton("Yes") { _, _ ->
+                    _15min = false
+                    _30min = false
+                    _60min = false
+                    binding.timer.setColorFilter(ContextCompat.getColor(this, R.color.black))
+                }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+            val customDialog = builder.create()
+            customDialog.show()
+            customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
+            customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
         }
     }
 
@@ -254,7 +257,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
             _15min = true
             Thread {
-                Thread.sleep(15*60000)
+                Thread.sleep(15 * 60000)
                 if (_15min) exitApplication()
             }.start()
             dialog.dismiss()
@@ -265,7 +268,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
             _30min = true
             Thread {
-                Thread.sleep(30*60000)
+                Thread.sleep(30 * 60000)
                 if (_30min) exitApplication()
             }.start()
             dialog.dismiss()
@@ -276,7 +279,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
             _60min = true
             Thread {
-                Thread.sleep(60*60000)
+                Thread.sleep(60 * 60000)
                 if (_60min) exitApplication()
             }.start()
             dialog.dismiss()
