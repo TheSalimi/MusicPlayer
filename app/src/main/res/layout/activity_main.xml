@@ -11,19 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            app:title="Music Player"
-            app:titleTextColor="@color/black" />
-
         <TextView
             android:id="@+id/totalSongs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/toolbar"
             android:layout_marginStart="8dp"
             android:text="total songs : 13" />
 
