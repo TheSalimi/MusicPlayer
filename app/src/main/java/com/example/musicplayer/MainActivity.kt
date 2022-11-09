@@ -8,7 +8,11 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Menu
 import android.view.MenuItem
+import android.view.accessibility.AccessibilityManager.TouchExplorationStateChangeListener
+import android.widget.SearchView
+import android.widget.SearchView.*
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
@@ -69,12 +73,10 @@ class MainActivity : AppCompatActivity() {
                 R.id.exit -> {
                     val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle("Exit")
-                        .setPositiveButton("Yes"){
-                            _,_ ->
+                        .setPositiveButton("Yes") { _, _ ->
                             exitApplication()
                         }
-                        .setNegativeButton("No"){
-                            dialog,_->
+                        .setNegativeButton("No") { dialog, _ ->
                             dialog.dismiss()
                         }
                     val customDialog = builder.create()
@@ -197,8 +199,25 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
-        if(!PlayerActivity.isPlaying && PlayerActivity.musicService!=null){
+        if (!PlayerActivity.isPlaying && PlayerActivity.musicService != null) {
             exitApplication()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.search_menu, menu)
+        val searchView =
+            menu?.findItem(R.id.searchView)?.actionView as SearchView
+        searchView.setOnQueryTextListener(object  : SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                Toast.makeText(this@MainActivity , newText.toString() , Toast.LENGTH_SHORT).show()
+                return true
+            }
+        })
+        return super.onCreateOptionsMenu(menu)
     }
 }
