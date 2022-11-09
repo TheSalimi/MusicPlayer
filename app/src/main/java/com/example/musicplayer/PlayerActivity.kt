@@ -97,6 +97,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                         _15min = false
                         _30min = false
                         _60min = false
+                        binding.timer.setColorFilter(ContextCompat.getColor(this,R.color.black))
                     }
                     .setNegativeButton("No") { dialog, _ ->
                         dialog.dismiss()
