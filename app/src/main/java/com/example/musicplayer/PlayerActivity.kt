@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Intent
 import android.content.ServiceConnection
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.media.audiofx.AudioEffect
 import androidx.appcompat.app.AppCompatActivity
@@ -14,13 +15,17 @@ import android.text.BoringLayout
 import android.widget.SeekBar
 import android.widget.SeekBar.*
 import android.widget.Toast
+import androidx.annotation.BoolRes
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ServiceCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.musicplayer.databinding.ActivityPlayerBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_player.*
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.*
+import kotlin.system.exitProcess
 
 class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCompletionListener {
 
@@ -33,6 +38,9 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         @SuppressLint("StaticFieldLeak")
         lateinit var binding: ActivityPlayerBinding
         var repeatSong: Boolean = false
+        var _15min: Boolean = false
+        var _30min: Boolean = false
+        var _60min: Boolean = false
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +86,26 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         }
 
         timer.setOnClickListener {
-            showBottomSheetDialog()
+            val timer = _15min || _30min || _60min
+            if (!timer)
+                showBottomSheetDialog()
+            else {
+                val builder = MaterialAlertDialogBuilder(this)
+                builder.setTitle("Stop Timer")
+                    .setMessage("Do you want to stop timer?")
+                    .setPositiveButton("Yes") { _, _ ->
+                        _15min = false
+                        _30min = false
+                        _60min = false
+                    }
+                    .setNegativeButton("No") { dialog, _ ->
+                        dialog.dismiss()
+                    }
+                val customDialog = builder.create()
+                customDialog.show()
+                customDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.BLACK)
+                customDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(Color.BLACK)
+            }
         }
     }
 
@@ -136,6 +163,8 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             .into(musicPic)
         songName.text = musicListPA[songPosition].title.toString()
         if (repeatSong) repeat.setColorFilter(ContextCompat.getColor(this, R.color.gray))
+        if (_15min || _60min || _30min)
+            timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
     }
 
     fun creatMediaPlayer() {
@@ -221,14 +250,35 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         dialog.show()
         dialog.min15.setOnClickListener {
             Toast.makeText(this, "Music will stop after 15 minutes", Toast.LENGTH_SHORT).show()
+            timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
+            _15min = true
+            Thread {
+                Thread.sleep(15*60000)
+                if (_15min) exitApplication()
+            }.start()
+            dialog.dismiss()
         }
 
         dialog.min30.setOnClickListener {
             Toast.makeText(this, "Music will stop after 30 minutes", Toast.LENGTH_SHORT).show()
+            timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
+            _30min = true
+            Thread {
+                Thread.sleep(30*60000)
+                if (_30min) exitApplication()
+            }.start()
+            dialog.dismiss()
         }
 
         dialog.min60.setOnClickListener {
             Toast.makeText(this, "Music will stop after 60 minutes", Toast.LENGTH_SHORT).show()
+            timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
+            _60min = true
+            Thread {
+                Thread.sleep(60*60000)
+                if (_60min) exitApplication()
+            }.start()
+            dialog.dismiss()
         }
     }
 }

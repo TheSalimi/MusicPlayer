@@ -71,12 +71,7 @@ class MainActivity : AppCompatActivity() {
                     builder.setTitle("Exit")
                         .setPositiveButton("Yes"){
                             _,_ ->
-                            if(PlayerActivity.musicService!=null) {
-                                PlayerActivity.musicService!!.stopForeground(true)
-                                PlayerActivity.musicService!!.mediaPlayer!!.release()
-                                PlayerActivity.musicService = null
-                            }
-                            exitProcess(1)
+                            exitApplication()
                         }
                         .setNegativeButton("No"){
                             dialog,_->
@@ -203,10 +198,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         if(!PlayerActivity.isPlaying && PlayerActivity.musicService!=null){
-            PlayerActivity.musicService!!.stopForeground(true)
-            PlayerActivity  .musicService!!.mediaPlayer!!.release()
-            PlayerActivity.musicService = null
-            exitProcess(1)
+            exitApplication()
         }
     }
 }
