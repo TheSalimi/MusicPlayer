@@ -6,6 +6,7 @@ import android.content.Intent
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_player.*
+import kotlinx.android.synthetic.main.fragment_now_playing.*
 import kotlin.system.exitProcess
 
 class NotificatinReciever : BroadcastReceiver() {
@@ -42,6 +43,14 @@ class NotificatinReciever : BroadcastReceiver() {
         Glide.with(context).load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
             .into(PlayerActivity.binding.musicPic)
         PlayerActivity.binding.songName.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
+        //set NowPlaying layout
+        Glide.with(context).load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
+            .into(NowPlaying.binding.IsPlayingImage)
+        NowPlaying.binding.IsPlayingName.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
+        NowPlaying.binding.IsPlayingArtistName.text =
+            PlayerActivity.musicListPA[PlayerActivity.songPosition].artist
         playMusic()
     }
+
+
 }
