@@ -8,7 +8,68 @@
     tools:context=".NowPlaying"
     app:cardElevation="5dp"
     android:layout_marginTop="5dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/IsPlayingImage"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginVertical="5dp"
+            android:layout_marginStart="5dp"
+            app:shapeAppearanceOverlay="@style/customRoundedImageView"
+            android:src="@color/gray"/>
+
+        <TextView
+            android:id="@+id/IsPlayingName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Por(feat. Behzad Leito)"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_toEndOf="@id/IsPlayingImage"
+            android:layout_toStartOf="@id/IsPlayingPLayOrPause"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="5dp"
+            android:ellipsize="end"
+            android:maxLines="1"/>
+
+        <TextView
+            android:id="@+id/IsPlayingArtistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "Putak"
+            android:layout_below="@id/IsPlayingName"
+            android:layout_toEndOf="@id/IsPlayingImage"
+            android:layout_toStartOf="@id/IsPlayingPLayOrPause"
+            android:layout_marginStart="5sp"
+            android:layout_marginTop="5dp"
+            android:ellipsize="end"/>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/IsPlayingPLayOrPause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_toStartOf="@id/IsPlayingNext"
+            android:layout_marginEnd="5dp"
+            app:icon="@drawable/ic_play"
+            />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/IsPlayingNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            app:icon="@drawable/ic_next"
+        />
 
 
-
+    </RelativeLayout>
 </androidx.cardview.widget.CardView>
