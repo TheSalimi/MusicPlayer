@@ -42,6 +42,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         var _15min: Boolean = false
         var _30min: Boolean = false
         var _60min: Boolean = false
+        var nowPlayingId : String = ""
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -153,6 +154,8 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 SeekBarEndTime.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
                 SeekBar.progress = musicService!!.mediaPlayer!!.currentPosition
                 SeekBar.max = musicService!!.mediaPlayer!!.duration
+                if(isPlaying) playPauseButton.setIconResource(R.drawable.ic_pause)
+                else playPauseButton.setIconResource(R.drawable.ic_play)
             }
             "MusicAdapterSearch"->{
                 startService()
@@ -204,6 +207,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             SeekBar.progress = 0
             SeekBar.max = musicService!!.mediaPlayer!!.duration
             musicService!!.mediaPlayer!!.setOnCompletionListener(this)
+            nowPlayingId = musicListPA[songPosition].id
         } catch (E: java.lang.Exception) {
             return
         }
@@ -271,7 +275,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
             _15min = true
             Thread {
-                Thread.sleep(15 * 60000)
+                Thread.sleep((15 * 60000).toLong())
                 if (_15min) exitApplication()
             }.start()
             dialog.dismiss()
@@ -282,7 +286,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
             _30min = true
             Thread {
-                Thread.sleep(30 * 60000)
+                Thread.sleep((30 * 60000).toLong())
                 if (_30min) exitApplication()
             }.start()
             dialog.dismiss()
@@ -293,7 +297,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
             _60min = true
             Thread {
-                Thread.sleep(60 * 60000)
+                Thread.sleep((60 * 60000).toLong())
                 if (_60min) exitApplication()
             }.start()
             dialog.dismiss()
