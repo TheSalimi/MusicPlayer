@@ -36,6 +36,7 @@ class NowPlaying : Fragment() {
         super.onResume()
         if (PlayerActivity.musicService != null) {
             binding.root.visibility = View.VISIBLE
+            IsPlayingName.isSelected = true
             Glide.with(this).load(PlayerActivity.musicListPA[PlayerActivity.songPosition].artUri)
                 .into(IsPlayingImage)
             IsPlayingName.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
