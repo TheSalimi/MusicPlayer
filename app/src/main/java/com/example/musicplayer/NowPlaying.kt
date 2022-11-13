@@ -1,12 +1,14 @@
 package com.example.musicplayer
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.musicplayer.databinding.FragmentNowPlayingBinding
 import com.google.android.material.resources.CancelableFontCallback.ApplyFont
@@ -25,10 +27,14 @@ class NowPlaying : Fragment() {
         val view = inflater.inflate(R.layout.fragment_now_playing, container, false)
         binding = FragmentNowPlayingBinding.bind(view)
         binding.root.visibility = View.INVISIBLE
+
         binding.IsPlayingPLayOrPause.setOnClickListener {
             if (PlayerActivity.isPlaying) pauseMusic() else playMusic()
         }
+
         binding.IsPlayingNext.setOnClickListener { nextSong() }
+        binding.root.setOnClickListener {  Clicked() }
+
         return view
     }
 
@@ -46,6 +52,13 @@ class NowPlaying : Fragment() {
             else IsPlayingPLayOrPause.setIconResource(R.drawable.ic_play)
 
         }
+    }
+
+    private fun Clicked() {
+        val intent = Intent(requireContext(), PlayerActivity::class.java)
+        intent.putExtra("index", PlayerActivity.songPosition)
+        intent.putExtra("class", "NowPlaying")
+        ContextCompat.startActivity(requireContext(), intent, null)
     }
 
     private fun playMusic() {

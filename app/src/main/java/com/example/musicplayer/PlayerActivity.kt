@@ -49,7 +49,6 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        startService()
         initializeLayout()
 
         BackToPreviousPageBtn.setOnClickListener { finish() }
@@ -148,17 +147,27 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
         songPosition = intent.getIntExtra("index", 0)
         when (intent.getStringExtra("class")) {
+            "NowPlaying"->{
+                setLayout()
+                SeekBarStartTime.text = formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
+                SeekBarEndTime.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
+                SeekBar.progress = musicService!!.mediaPlayer!!.currentPosition
+                SeekBar.max = musicService!!.mediaPlayer!!.duration
+            }
             "MusicAdapterSearch"->{
+                startService()
                 musicListPA = ArrayList()
                 musicListPA.addAll(MainActivity.musicListSearch)
                 setLayout()
             }
             "MusicAdapter" -> {
+                startService()
                 musicListPA = ArrayList()
                 musicListPA.addAll(MainActivity.musicList)
                 setLayout()
             }
             "MainActivity" -> {
+                startService()
                 musicListPA = ArrayList()
                 musicListPA.addAll(MainActivity.musicList)
                 musicListPA.shuffle()
