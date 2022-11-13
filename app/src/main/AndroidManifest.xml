@@ -20,6 +20,7 @@
             android:name=".playlistActivity"
             android:exported="false"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.MusicPlayerNoActionBar"
             tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.lib_name"
@@ -29,6 +30,7 @@
             android:name=".FavoritesActivity"
             android:exported="false"
             android:screenOrientation="portrait"
+            android:theme="@style/Theme.MusicPlayerNoActionBar"
             tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.lib_name"
