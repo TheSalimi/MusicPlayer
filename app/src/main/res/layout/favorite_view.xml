@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_margin="10dp"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
 
@@ -13,6 +13,7 @@
         android:layout_height="125dp"
         app:shapeAppearanceOverlay="@style/customRoundedImageView"
         android:src="@color/black"
+        android:layout_gravity="center_horizontal"
         android:contentDescription="@string/song_name"/>
 
     <TextView
@@ -24,6 +25,7 @@
         android:marqueeRepeatLimit="marquee_forever"
         android:text="@string/song_name"
         android:textSize="20sp"
+        android:layout_gravity="center_horizontal"
         android:textAlignment="center"
         android:textColor="@color/black"/>
 
