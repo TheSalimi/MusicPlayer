@@ -24,6 +24,7 @@ import com.bumptech.glide.Glide
 import com.example.musicplayer.databinding.ActivityPlayerBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_player.*
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.*
 import kotlin.system.exitProcess
@@ -43,6 +44,8 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         var _30min: Boolean = false
         var _60min: Boolean = false
         var nowPlayingId : String = ""
+        var isFavorite : Boolean = false
+        var fIndex : Int = -1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,6 +82,27 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         timer.setOnClickListener {setTimer()}
 
         share.setOnClickListener { shareBtn() }
+
+        addToFavorites.setOnClickListener {
+            if(isFavorite) removeFromFavorites()
+            else AddtoFavorites()
+        }
+    }
+
+    private fun removeFromFavorites(){
+        isFavorite = false
+        addToFavorites.setImageResource(
+            R.drawable.ic_fav24
+        )
+        FavoritesActivity.favorieSongs.removeAt(fIndex)
+    }
+
+    private fun AddtoFavorites(){
+        isFavorite = true
+        addToFavorites.setImageResource(
+            R.drawable.filled_favorite
+        )
+        FavoritesActivity.favorieSongs.add(musicListPA[songPosition])
     }
 
     private fun shareBtn(){
@@ -180,12 +204,15 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
     }
 
     private fun setLayout() {
+        fIndex = favoriteChecker(musicListPA[songPosition].id)
         Glide.with(this).load(musicListPA[songPosition].artUri)
             .into(musicPic)
         songName.text = musicListPA[songPosition].title.toString()
         if (repeatSong) repeat.setColorFilter(ContextCompat.getColor(this, R.color.gray))
         if (_15min || _60min || _30min)
             timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
+        if(isFavorite) addToFavorites.setImageResource(R.drawable.filled_favorite)
+        else addToFavorites.setImageResource(R.drawable.ic_fav24)
     }
 
     fun creatMediaPlayer() {
