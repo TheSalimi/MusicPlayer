@@ -1,7 +1,9 @@
 package com.example.musicplayer
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.core.view.size
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,5 +35,14 @@ class FavoritesActivity : AppCompatActivity() {
         adapter = FavoriteAdaptor(this, favorieSongs)
         favoritesList.adapter = adapter
         if(favoritesList.size!=0) songNameFav.isSelected = true
+        if(favorieSongs.size <  1) shuffleButtonFav.visibility = View.INVISIBLE
+        shuffleButtonFav.setOnClickListener {shuffle()}
+    }
+
+    private fun shuffle(){
+        val intent = Intent(this@FavoritesActivity, PlayerActivity::class.java)
+        intent.putExtra("index", 0)
+        intent.putExtra("class", "FavoriteShuffle")
+        startActivity(intent)
     }
 }
