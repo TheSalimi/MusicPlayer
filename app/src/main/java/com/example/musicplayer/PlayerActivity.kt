@@ -169,9 +169,14 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
     }
 
     private fun initializeLayout() {
-
         songPosition = intent.getIntExtra("index", 0)
         when (intent.getStringExtra("class")) {
+            "FavoriteAdapter"->{
+                startService()
+                musicListPA = ArrayList()
+                musicListPA.addAll(FavoritesActivity.favorieSongs)
+                setLayout()
+            }
             "NowPlaying"->{
                 setLayout()
                 SeekBarStartTime.text = formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())

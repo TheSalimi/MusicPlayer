@@ -16,6 +16,7 @@ class FavoriteAdaptor(private val context: Context, private var musicList: Array
     class myHolder(binding: FavoriteViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val titile = binding.songNameFav
         val image = binding.songImageFav
+        val root = binding.root
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteAdaptor.myHolder {
@@ -25,6 +26,9 @@ class FavoriteAdaptor(private val context: Context, private var musicList: Array
     override fun onBindViewHolder(holder: myHolder, position: Int) {
         holder.titile.text = musicList[position].title
         Glide.with(context).load(musicList[position].artUri).into(holder.image)
+        holder.root.setOnClickListener{
+             sendIntent("FavoriteAdapter" , position)
+        }
     }
 
     override fun getItemCount(): Int = musicList.size

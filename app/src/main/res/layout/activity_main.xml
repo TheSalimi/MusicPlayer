@@ -60,7 +60,7 @@
                     android:autoSizeMinTextSize="8sp"
                     android:autoSizeTextType="uniform"
                     android:contentDescription="@string/shuffle_btn"
-                    android:drawableTop="@drawable/ic_fav24"
+                    android:drawableTop="@drawable/filled_favorite"
                     android:text="@string/favourites_btn"
                     android:textColor="@color/black"
                     android:textSize="12sp" />

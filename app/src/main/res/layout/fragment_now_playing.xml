@@ -59,6 +59,7 @@
             android:layout_toStartOf="@id/IsPlayingNext"
             android:layout_marginEnd="5dp"
             app:icon="@drawable/ic_play"
+
             />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
@@ -69,6 +70,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="8dp"
             app:icon="@drawable/ic_next"
+
         />
 
 
