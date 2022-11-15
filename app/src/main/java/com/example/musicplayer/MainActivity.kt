@@ -19,6 +19,8 @@ import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicplayer.databinding.ActivityMainBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.util.MissingFormatArgumentException
@@ -46,9 +48,10 @@ class MainActivity : AppCompatActivity() {
         toggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        if (requestRunTimePermission())
+        if (requestRunTimePermission()) {
             initialazation()
-
+            getFromShardPrefrences()
+        }
         shuffleButton.setOnClickListener {
             val intent = Intent(this@MainActivity, PlayerActivity::class.java)
             intent.putExtra("index", 0)
@@ -201,8 +204,32 @@ class MainActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        putToShardPrefrences()
         if (!PlayerActivity.isPlaying && PlayerActivity.musicService != null) {
             exitApplication()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        putToShardPrefrences()
+    }
+
+    private fun putToShardPrefrences(){
+        val editor = getSharedPreferences("FAVORITES" , MODE_PRIVATE).edit()
+        val jsonString = GsonBuilder().create().toJson(FavoritesActivity.favorieSongs)
+        editor.putString("FavoriteSongs" , jsonString)
+        editor.apply()
+    }
+
+    private fun getFromShardPrefrences(){
+        FavoritesActivity.favorieSongs = ArrayList()
+        val editor = getSharedPreferences("FAVORITES" , MODE_PRIVATE)
+        val typeToken = object : TypeToken<ArrayList<Music>>(){}.type
+        val jsonString = editor.getString("FavoriteSongs" , null)
+        if(jsonString != null){
+            val data : ArrayList<Music> = GsonBuilder().create().fromJson(jsonString , typeToken)
+            FavoritesActivity.favorieSongs.addAll(data)
         }
     }
 
