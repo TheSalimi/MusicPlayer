@@ -91,7 +91,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
     private fun removeFromFavorites() {
         fIndex = favoriteChecker(musicListPA[songPosition].id)
-        
+
         isFavorite = false
         addToFavorites.setImageResource(
             R.drawable.ic_fav24

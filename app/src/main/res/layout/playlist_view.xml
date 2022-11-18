@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="20dp"
+    app:strokeWidth="2dp"
+    app:strokeColor="@color/black">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/playListImage"
+        android:layout_width="175dp"
+        android:layout_height="175dp"
+        android:src="@color/black"
+        app:shapeAppearanceOverlay="@style/customRoundedImageView"/>
+
+    <TextView
+        android:id="@+id/playListNameTV"
+        android:layout_width="145dp"
+        android:layout_height="30dp"
+        android:text="playlist name"
+        android:textSize="16sp"
+        android:gravity="center"
+        android:layout_marginTop="175dp"
+        android:textColor="@color/black"
+        android:contentDescription="@string/playlist_name"/>
+
+    <ImageButton
+        android:id="@+id/playListDeleteBtn"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_marginTop="175dp"
+        android:layout_marginStart="145dp"
+        android:backgroundTint="@android:color/transparent"/>
+</com.google.android.material.card.MaterialCardView>
