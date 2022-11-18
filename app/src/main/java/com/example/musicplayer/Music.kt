@@ -44,6 +44,7 @@ fun setSongPosition(increment: Boolean) {
     }
 }
 
+
 fun exitApplication() {
     if (PlayerActivity.musicService != null) {
         PlayerActivity.musicService!!.stopForeground(true)

@@ -43,9 +43,9 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         var _15min: Boolean = false
         var _30min: Boolean = false
         var _60min: Boolean = false
-        var nowPlayingId : String = ""
-        var isFavorite : Boolean = false
-        var fIndex : Int = -1
+        var nowPlayingId: String = ""
+        var isFavorite: Boolean = false
+        var fIndex: Int = -1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,25 +79,28 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
         equalizer.setOnClickListener { setEqualizer() }
 
-        timer.setOnClickListener {setTimer()}
+        timer.setOnClickListener { setTimer() }
 
         share.setOnClickListener { shareBtn() }
 
         addToFavorites.setOnClickListener {
-            if(isFavorite) removeFromFavorites()
+            if (isFavorite) removeFromFavorites()
             else AddtoFavorites()
         }
     }
 
-    private fun removeFromFavorites(){
+    private fun removeFromFavorites() {
+        fIndex = favoriteChecker(musicListPA[songPosition].id)
+        
         isFavorite = false
         addToFavorites.setImageResource(
             R.drawable.ic_fav24
         )
         FavoritesActivity.favorieSongs.removeAt(fIndex)
+
     }
 
-    private fun AddtoFavorites(){
+    private fun AddtoFavorites() {
         isFavorite = true
         addToFavorites.setImageResource(
             R.drawable.filled_favorite
@@ -105,15 +108,15 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         FavoritesActivity.favorieSongs.add(musicListPA[songPosition])
     }
 
-    private fun shareBtn(){
+    private fun shareBtn() {
         val shareIntent = Intent()
         shareIntent.action = Intent.ACTION_SEND
         shareIntent.type = "audio/*"
-        shareIntent.putExtra(Intent.EXTRA_STREAM , Uri.parse(musicListPA[songPosition].path))
-        startActivity(Intent.createChooser(shareIntent , "Share"))
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(musicListPA[songPosition].path))
+        startActivity(Intent.createChooser(shareIntent, "Share"))
     }
 
-    private fun setTimer(){
+    private fun setTimer() {
         val timer = _15min || _30min || _60min
         if (!timer)
             showBottomSheetDialog()
@@ -171,29 +174,30 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
     private fun initializeLayout() {
         songPosition = intent.getIntExtra("index", 0)
         when (intent.getStringExtra("class")) {
-            "FavoriteShuffle"->{
+            "FavoriteShuffle" -> {
                 startService()
                 musicListPA = ArrayList()
                 musicListPA.addAll(FavoritesActivity.favorieSongs)
                 musicListPA.shuffle()
                 setLayout()
             }
-            "FavoriteAdapter"->{
+            "FavoriteAdapter" -> {
                 startService()
                 musicListPA = ArrayList()
                 musicListPA.addAll(FavoritesActivity.favorieSongs)
                 setLayout()
             }
-            "NowPlaying"->{
+            "NowPlaying" -> {
                 setLayout()
-                SeekBarStartTime.text = formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
+                SeekBarStartTime.text =
+                    formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
                 SeekBarEndTime.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
                 SeekBar.progress = musicService!!.mediaPlayer!!.currentPosition
                 SeekBar.max = musicService!!.mediaPlayer!!.duration
-                if(isPlaying) playPauseButton.setIconResource(R.drawable.ic_pause)
+                if (isPlaying) playPauseButton.setIconResource(R.drawable.ic_pause)
                 else playPauseButton.setIconResource(R.drawable.ic_play)
             }
-            "MusicAdapterSearch"->{
+            "MusicAdapterSearch" -> {
                 startService()
                 musicListPA = ArrayList()
                 musicListPA.addAll(MainActivity.musicListSearch)
@@ -223,7 +227,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         if (repeatSong) repeat.setColorFilter(ContextCompat.getColor(this, R.color.gray))
         if (_15min || _60min || _30min)
             timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
-        if(isFavorite) addToFavorites.setImageResource(R.drawable.filled_favorite)
+        if (isFavorite) addToFavorites.setImageResource(R.drawable.filled_favorite)
         else addToFavorites.setImageResource(R.drawable.ic_fav24)
     }
 
