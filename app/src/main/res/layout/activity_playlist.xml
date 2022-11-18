@@ -28,8 +28,19 @@
         app:layout_constraintTop_toTopOf="@id/backFromPlayList"
         app:layout_constraintBottom_toBottomOf="@id/backFromPlayList"
         android:background="@drawable/borderbottom"
-        android:fontFamily="@font/wonderbar_demo"
+        android:fontFamily="sans-serif-medium"
         android:textColor="@color/black"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/playlists"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbarThumbVertical="@drawable/ic_scrollbar"
+        android:scrollbars="vertical"
+        app:layout_constraintTop_toBottomOf="@id/backFromPlayList"
+        android:paddingBottom="40dp"
+        android:layout_marginTop="2dp"
+        />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:layout_width="wrap_content"

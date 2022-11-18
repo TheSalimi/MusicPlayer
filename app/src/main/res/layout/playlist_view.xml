@@ -1,36 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+<com.google.android.material.card.MaterialCardView
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="210dp"
     app:cardCornerRadius="20dp"
-    app:strokeWidth="2dp"
-    app:strokeColor="@color/black">
+    app:cardElevation="5dp">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/playListImage"
-        android:layout_width="175dp"
+        android:layout_width="match_parent"
         android:layout_height="175dp"
-        android:src="@color/black"
-        app:shapeAppearanceOverlay="@style/customRoundedImageView"/>
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="0dp"
+        android:src="@drawable/music_splash"
+        app:shapeAppearanceOverlay="@style/customRoundedImageView" />
 
     <TextView
         android:id="@+id/playListNameTV"
-        android:layout_width="145dp"
-        android:layout_height="30dp"
-        android:text="playlist name"
-        android:textSize="16sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/playListImage"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/playListDeleteBtn"
+        android:contentDescription="@string/playlist_name"
         android:gravity="center"
-        android:layout_marginTop="175dp"
+        android:text="playlist name"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
         android:textColor="@color/black"
-        android:contentDescription="@string/playlist_name"/>
+        android:textSize="16sp" />
 
     <ImageButton
         android:id="@+id/playListDeleteBtn"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:src="@drawable/ic_baseline_delete_24"
-        android:layout_marginTop="175dp"
-        android:layout_marginStart="145dp"
-        android:backgroundTint="@android:color/transparent"/>
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:backgroundTint="@android:color/transparent"
+        android:src="@drawable/ic_baseline_delete_24" />
+</RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

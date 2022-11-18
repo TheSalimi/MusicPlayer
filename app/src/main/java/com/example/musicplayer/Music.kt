@@ -1,7 +1,9 @@
 package com.example.musicplayer
 
+import android.content.Intent
 import android.media.MediaMetadataRetriever
 import android.net.Uri
+import androidx.core.content.ContextCompat
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
@@ -64,5 +66,6 @@ fun favoriteChecker(id: String): Int {
     }
     return -1
 }
+
 
 
