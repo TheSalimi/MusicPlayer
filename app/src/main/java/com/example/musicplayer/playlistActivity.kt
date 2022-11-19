@@ -19,7 +19,7 @@ import kotlin.collections.ArrayList
 
 class playlistActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlaylistBinding
-    private lateinit var PlayListsAdapter: PlayListViewAdapter
+    private lateinit var adapter: PlayListViewAdapter
 
     companion object {
         var musicPlayList: MusicPlayList = MusicPlayList()
@@ -29,26 +29,20 @@ class playlistActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPlaylistBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val tempList = ArrayList<String>()
-        tempList.add("salam")
-        tempList.add("amir")
-        tempList.add("narges")
-        tempList.add("saleh")
-        tempList.add("armin")
-        tempList.add("behnoosh")
-        initializeRecyclerView(tempList)
+
+        initializeRecyclerView(musicPlayList.ref)
         backFromPlayList.setOnClickListener {
             finish()
         }
         addPlayListBtn.setOnClickListener { customAlertDialog() }
     }
 
-    private fun initializeRecyclerView(tempList: ArrayList<String>) {
+    private fun initializeRecyclerView(tempList: ArrayList<PlayList>) {
         playlists.setHasFixedSize(true)
         playlists.setItemViewCacheSize(13)
         playlists.layoutManager = GridLayoutManager(this@playlistActivity, 2)
-        PlayListsAdapter = PlayListViewAdapter(this, tempList)
-        playlists.adapter = PlayListsAdapter
+        adapter = PlayListViewAdapter(this, musicPlayList.ref)
+        playlists.adapter = adapter
     }
 
     private fun customAlertDialog() {
@@ -93,7 +87,8 @@ class playlistActivity : AppCompatActivity() {
             val calender =  java.util.Calendar.getInstance().time
             val sdf = SimpleDateFormat("dd MMM yyy" , Locale.ENGLISH)
             tempPlayList.createdOn = sdf.format(calender)
-            musicPlayList.ref.add((tempPlayList))
+            musicPlayList.ref.add(tempPlayList)
+            adapter.refreshPlaylist()
         }
     }
 

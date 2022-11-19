@@ -38,4 +38,10 @@ class PlayListViewAdapter(private val context: Context, private var playLists_li
         intent.putExtra("class", ref)
         ContextCompat.startActivity(context, intent, null)
     }
+
+    fun refreshPlaylist(){
+        playLists_list = ArrayList()
+        playLists_list.addAll(playlistActivity.musicPlayList.ref)
+        notifyDataSetChanged()
+    }
 }
