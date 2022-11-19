@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.musicplayer.databinding.PlaylistViewBinding
 
-class PlayListViewAdapter(private val context: Context, private var playLists_list: ArrayList<String>) :
+class PlayListViewAdapter(private val context: Context, private var playLists_list: ArrayList<PlayList>) :
     RecyclerView.Adapter<PlayListViewAdapter.myHolder>() {
     class myHolder(binding: PlaylistViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val titile = binding.playListNameTV
@@ -23,7 +23,7 @@ class PlayListViewAdapter(private val context: Context, private var playLists_li
     }
 
     override fun onBindViewHolder(holder: myHolder, position: Int) {
-        holder.titile.text = playLists_list[position]
+        holder.titile.text = playLists_list[position].name
         holder.titile.isSelected = true
         holder.root.setOnClickListener{
 
