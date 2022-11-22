@@ -9,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.databinding.PlaylistViewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -50,6 +51,13 @@ class PlayListViewAdapter(private val context: Context, private var playLists_li
             val intent = Intent(context , PlayListDetails::class.java)
             intent.putExtra("index" , position)
             ContextCompat.startActivity(context , intent , null);
+        }
+
+        if(playlistActivity.musicPlayList.ref[position].playList.size > 0){
+            Glide.with(context)
+                .load(playlistActivity.musicPlayList.ref[position].playList[0].artUri)
+                .apply(RequestOptions().placeholder(R.drawable.splash_screen).centerCrop())
+                .into(holder.image)
         }
     }
 

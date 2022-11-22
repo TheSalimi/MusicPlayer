@@ -30,12 +30,22 @@ class MusicAdapter(private val context: Context, private var musicList: ArrayLis
         holder.length.text = formatDuration(musicList[position].duration)
 
         Glide.with(context).load(musicList[position].artUri).into(holder.image)
-        holder.root.setOnClickListener {
-            when {
-                MainActivity.search -> sendIntent("MusicAdapterSearch", position)
-                musicList[position].id == PlayerActivity.nowPlayingId->
-                    sendIntent("NowPlaying" , PlayerActivity.songPosition)
-                else -> sendIntent("MusicAdapter", position)
+
+        when{
+            playListDetails ->{
+                holder.root.setOnClickListener{
+                    sendIntent("PlayListDetailsAdapter" , position)
+                }
+            }
+            else ->{
+                holder.root.setOnClickListener {
+                    when {
+                        MainActivity.search -> sendIntent("MusicAdapterSearch", position)
+                        musicList[position].id == PlayerActivity.nowPlayingId->
+                            sendIntent("NowPlaying" , PlayerActivity.songPosition)
+                        else -> sendIntent("MusicAdapter", position)
+                    }
+                }
             }
         }
     }

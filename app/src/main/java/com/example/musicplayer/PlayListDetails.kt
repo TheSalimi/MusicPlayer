@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.databinding.ActivityPlayListDetailsBinding
 import com.example.musicplayer.databinding.ActivityPlaylistBinding
+import kotlinx.android.synthetic.main.activity_favorites.*
 import kotlinx.android.synthetic.main.activity_play_list_details.*
 
 class PlayListDetails : AppCompatActivity() {
@@ -23,12 +24,16 @@ class PlayListDetails : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.backFromPlayListDetails.setOnClickListener { finish() }
+
         currentPlayListPosition = intent.extras?.get("index") as Int
         musics.setItemViewCacheSize(10)
         musics.setHasFixedSize(true)
         playlistActivity.musicPlayList.ref[currentPlayListPosition].playList.addAll(MainActivity.musicList)
+        playlistActivity.musicPlayList.ref[currentPlayListPosition].playList.shuffle()
         musics.layoutManager = LinearLayoutManager(this)
         adapter = MusicAdapter( this , playlistActivity.musicPlayList.ref[currentPlayListPosition].playList , true)
+        binding.playListName.isSelected = true
         musics.adapter = adapter
     }
 

@@ -216,6 +216,12 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 musicListPA.shuffle()
                 setLayout()
             }
+            "PlayListDetailsAdapter"->{
+                startService()
+                musicListPA = ArrayList()
+                musicListPA.addAll(playlistActivity.musicPlayList.ref[PlayListDetails.currentPlayListPosition].playList)
+                setLayout()
+            }
         }
     }
 
