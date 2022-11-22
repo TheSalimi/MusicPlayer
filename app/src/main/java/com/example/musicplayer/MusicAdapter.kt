@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.databinding.MusicViewBinding
 
-class MusicAdapter(private val context: Context, private var musicList: ArrayList<Music> , private var playListDetails: Boolean) :
+class MusicAdapter(private val context: Context, private var musicList: ArrayList<Music> , private var playListDetails : Boolean = false) :
     RecyclerView.Adapter<MusicAdapter.myHolder>() {
     class myHolder(binding: MusicViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val titile = binding.musicName

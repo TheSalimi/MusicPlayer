@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.databinding.ActivityPlayListDetailsBinding
 import com.example.musicplayer.databinding.ActivityPlaylistBinding
 import kotlinx.android.synthetic.main.activity_play_list_details.*
@@ -37,6 +38,7 @@ class PlayListDetails : AppCompatActivity() {
         if(adapter.itemCount>0){
             Glide.with(this)
                 .load(playlistActivity.musicPlayList.ref[currentPlayListPosition].playList[0].artUri)
+                .apply(RequestOptions().placeholder(R.drawable.music_splash).centerCrop())
                 .into(binding.playListImageInDetails)
             binding.shuffleInDetils.visibility = View.VISIBLE
         }

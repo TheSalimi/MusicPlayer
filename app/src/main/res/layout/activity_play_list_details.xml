@@ -10,104 +10,114 @@
         android:id="@+id/backFromPlayListDetails"
         android:layout_width="28dp"
         android:layout_height="28dp"
-        android:src="@drawable/ic_back"
+        android:layout_margin="16dp"
         android:background="@android:color/transparent"
+        android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_margin="16dp"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/playListName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/playlist"
-        android:textSize="24sp"
         android:layout_marginStart="15dp"
-        android:textAlignment="center"
         android:layout_marginEnd="8dp"
-        app:layout_constraintStart_toEndOf="@id/backFromPlayListDetails"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/backFromPlayListDetails"
         android:fontFamily="sans-serif-medium"
-        android:textColor="@color/black"/>
-
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/playListImageInDetails"
-        android:layout_marginTop="5dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/music_splash"
-        app:layout_constraintTop_toBottomOf="@id/backFromPlayListDetails"/>
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/musics"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="40dp"
-        app:layout_constraintTop_toBottomOf="@id/playListImageInDetails"
-        android:layout_margin="10dp"
-        android:scrollbarThumbVertical="@drawable/ic_scrollbar"
-        android:scrollbars="vertical" />
-
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/shuffleInDetils"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:layout_marginEnd="16dp"
-        app:icon="@drawable/ic_shuffle"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayoutDetails"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayoutDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/playlist"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/backFromPlayListDetails"
         app:layout_constraintEnd_toEndOf="parent"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:elevation="5dp"
-        android:weightSum="2">
+        app:layout_constraintStart_toEndOf="@id/backFromPlayListDetails" />
 
-        <Button
-            android:id="@+id/addBtn"
-            style="@style/Widget.AppCompat.Button.Borderless"
+    <RelativeLayout
+        android:id="@+id/RV_layout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/playListName"
+        android:paddingBottom="60dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/playListImageInDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:src="@drawable/music_splash" />
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/musics"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_below="@id/playListImageInDetails"
+            android:scrollbarThumbVertical="@drawable/ic_scrollbar"
+            android:scrollbars="vertical" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/shuffleInDetils"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:layout_marginBottom="4dp"
-            android:autoSizeMaxTextSize="16sp"
-            android:autoSizeMinTextSize="8sp"
-            android:autoSizeTextType="uniform"
-            android:contentDescription="@string/shuffle_btn"
-            android:drawableTop="@drawable/add_ic"
-            android:text="Add"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_weight="1"/>
+            android:layout_above="@id/linearLayoutDetails"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:backgroundTint="@color/white"
+            app:icon="@drawable/ic_shuffle" />
 
-
-        <Button
-            android:id="@+id/removeBtn"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/linearLayoutDetails"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            android:autoSizeMaxTextSize="16sp"
-            android:autoSizeMinTextSize="8sp"
-            android:autoSizeTextType="uniform"
-            android:contentDescription="@string/shuffle_btn"
-            android:drawableTop="@drawable/remove_ic"
-            android:text="remove"
-            android:textColor="@color/black"
-            android:textSize="12sp"
-            android:layout_weight="1"/>
-    </LinearLayout>
+            android:background="@color/white"
+            android:layout_alignParentBottom="true"
+            android:elevation="5dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="2dp"
+            android:weightSum="2">
 
+            <Button
+                android:id="@+id/addBtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_marginBottom="4dp"
+                android:layout_weight="1"
+                android:autoSizeMaxTextSize="16sp"
+                android:autoSizeMinTextSize="8sp"
+                android:autoSizeTextType="uniform"
+                android:contentDescription="@string/shuffle_btn"
+                android:drawableTop="@drawable/add_ic"
+                android:text="Add"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+
+            <Button
+                android:id="@+id/removeBtn"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:autoSizeMaxTextSize="16sp"
+                android:autoSizeMinTextSize="8sp"
+                android:autoSizeTextType="uniform"
+                android:contentDescription="@string/shuffle_btn"
+                android:drawableTop="@drawable/remove_ic"
+                android:text="remove"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </RelativeLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
