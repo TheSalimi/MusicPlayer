@@ -18,10 +18,20 @@
         android:theme="@style/Theme.MusicPlayer"
         tools:targetApi="31">
         <activity
-            android:name=".PlayListDetails"
+            android:name=".SelectionActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.MusicPlayerNoActionBar"
+            tools:ignore="LockedOrientationActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".PlayListDetails"
             android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.MusicPlayerNoActionBar"
             tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.lib_name"
