@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/favoritesList"
+        android:id="@+id/selectionRV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"

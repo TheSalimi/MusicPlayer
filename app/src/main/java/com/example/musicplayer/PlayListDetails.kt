@@ -43,6 +43,10 @@ class PlayListDetails : AppCompatActivity() {
             intent.putExtra("class" , "PlaylistDetailsShuffle")
             startActivity(intent)
         }
+
+        binding.addBtn.setOnClickListener {
+            startActivity(Intent( this , SelectionActivity::class.java))
+        }
     }
 
     override fun onResume() {
