@@ -1,5 +1,6 @@
 package com.example.musicplayer
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -35,6 +36,13 @@ class PlayListDetails : AppCompatActivity() {
         adapter = MusicAdapter( this , playlistActivity.musicPlayList.ref[currentPlayListPosition].playList , true)
         binding.playListName.isSelected = true
         musics.adapter = adapter
+
+        binding.shuffleInDetils.setOnClickListener {
+            val intent = Intent(this , PlayerActivity::class.java)
+            intent.putExtra("index" , 8)
+            intent.putExtra("class" , "PlaylistDetailsShuffle")
+            startActivity(intent)
+        }
     }
 
     override fun onResume() {
