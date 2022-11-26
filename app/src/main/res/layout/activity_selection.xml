@@ -6,4 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".SelectionActivity">
 
+    <ImageButton
+        android:id="@+id/addToPlaylistBtn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/add_ic"
+        android:background="@android:color/transparent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="4dp"/>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchView"
+        android:layout_width="0dp"
+        android:layout_marginTop="4dp"
+        android:layout_height="40dp"
+        app:queryHint="Song Name"
+        app:searchIcon="@drawable/ic_baseline_search_24"
+        android:focusable="false"
+        app:iconifiedByDefault="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/addToPlaylistBtn"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoritesList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/searchView"
+        android:scrollbarThumbVertical="@drawable/ic_scrollbar"
+        android:scrollbars="vertical"
+        android:paddingBottom="40dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
