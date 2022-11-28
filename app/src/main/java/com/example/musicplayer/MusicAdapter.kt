@@ -45,7 +45,7 @@ class MusicAdapter(
             selectionActivity ->{
                 holder.root.setOnClickListener {
                     if(addSong(musicList[position]))
-                        holder.root.setBackgroundColor(ContextCompat.getColor(context , R.color.gray))
+                        holder.root.setBackgroundColor(ContextCompat.getColor(context , R.color.light_gray))
                     else
                         holder.root.setBackgroundColor(ContextCompat.getColor(context  , R.color.white))
                 }
@@ -81,8 +81,7 @@ class MusicAdapter(
     }
 
     private fun addSong (song : Music) : Boolean {
-        playlistActivity.musicPlayList.ref[PlayListDetails.currentPlayListPosition].playList.forEachIndexed{
-            index, music ->
+        playlistActivity.musicPlayList.ref[PlayListDetails.currentPlayListPosition].playList.forEachIndexed{ index, music ->
             if(song.id ==  music.id){
                 playlistActivity.musicPlayList.ref[PlayListDetails.currentPlayListPosition].playList.removeAt(index)
                 return false
@@ -90,5 +89,11 @@ class MusicAdapter(
         }
         playlistActivity.musicPlayList.ref[PlayListDetails.currentPlayListPosition].playList.add(song)
         return true
+    }
+
+    fun refreshPLayList(){
+        musicList = ArrayList()
+        musicList = playlistActivity.musicPlayList.ref[PlayListDetails.currentPlayListPosition].playList
+        notifyDataSetChanged()
     }
 }

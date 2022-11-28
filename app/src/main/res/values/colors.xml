@@ -30,4 +30,6 @@
     <color name="secondaryTextColor">#000000</color>
 
     <color name="gray">#9B9A9A</color>
+
+    <color name="light_gray">#DAD8D8</color>
 </resources>
