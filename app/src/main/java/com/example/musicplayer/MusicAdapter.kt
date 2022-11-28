@@ -9,9 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.databinding.MusicViewBinding
+import kotlinx.coroutines.currentCoroutineContext
 
-class MusicAdapter(private val context: Context, private var musicList: ArrayList<Music> , private var playListDetails : Boolean = false) :
-    RecyclerView.Adapter<MusicAdapter.myHolder>() {
+class MusicAdapter(
+    private val context: Context,
+    private var musicList: ArrayList<Music>,
+    private var playListDetails: Boolean = false,
+    private var selectionActivity: Boolean = false
+) : RecyclerView.Adapter<MusicAdapter.myHolder>() {
     class myHolder(binding: MusicViewBinding) : RecyclerView.ViewHolder(binding.root) {
         val titile = binding.musicName
         val subTitle = binding.subTitle
@@ -31,18 +36,28 @@ class MusicAdapter(private val context: Context, private var musicList: ArrayLis
 
         Glide.with(context).load(musicList[position].artUri).into(holder.image)
 
-        when{
-            playListDetails ->{
-                holder.root.setOnClickListener{
-                    sendIntent("PlayListDetailsAdapter" , position)
+        when {
+            playListDetails -> {
+                holder.root.setOnClickListener {
+                    sendIntent("PlayListDetailsAdapter", position)
                 }
             }
-            else ->{
+            selectionActivity ->{
+                holder.root.setOnClickListener {
+                    if(addSong(musicList[position]))
+                        holder.root.setBackgroundColor(ContextCompat.getColor(context , R.color.gray))
+                    else
+                        holder.root.setBackgroundColor(ContextCompat.getColor(context  , R.color.white))
+                }
+            }
+            else -> {
                 holder.root.setOnClickListener {
                     when {
                         MainActivity.search -> sendIntent("MusicAdapterSearch", position)
-                        musicList[position].id == PlayerActivity.nowPlayingId->
-                            sendIntent("NowPlaying" , PlayerActivity.songPosition)
+                        musicList[position].id == PlayerActivity.nowPlayingId -> sendIntent(
+                            "NowPlaying",
+                            PlayerActivity.songPosition
+                        )
                         else -> sendIntent("MusicAdapter", position)
                     }
                 }
@@ -63,5 +78,17 @@ class MusicAdapter(private val context: Context, private var musicList: ArrayLis
         intent.putExtra("index", position)
         intent.putExtra("class", ref)
         ContextCompat.startActivity(context, intent, null)
+    }
+
+    private fun addSong (song : Music) : Boolean {
+        playlistActivity.musicPlayList.ref[PlayListDetails.currentPlayListPosition].playList.forEachIndexed{
+            index, music ->
+            if(song.id ==  music.id){
+                playlistActivity.musicPlayList.ref[PlayListDetails.currentPlayListPosition].playList.removeAt(index)
+                return false
+            }
+        }
+        playlistActivity.musicPlayList.ref[PlayListDetails.currentPlayListPosition].playList.add(song)
+        return true
     }
 }
