@@ -30,9 +30,10 @@ class PlayListDetails : AppCompatActivity() {
         currentPlayListPosition = intent.extras?.get("index") as Int
         musics.setItemViewCacheSize(10)
         musics.setHasFixedSize(true)
+        musics.layoutManager = LinearLayoutManager(this)
+
         playlistActivity.musicPlayList.ref[currentPlayListPosition].playList.addAll(MainActivity.musicList)
         playlistActivity.musicPlayList.ref[currentPlayListPosition].playList.shuffle()
-        musics.layoutManager = LinearLayoutManager(this)
         adapter = MusicAdapter( this , playlistActivity.musicPlayList.ref[currentPlayListPosition].playList , true)
         binding.playListName.isSelected = true
         musics.adapter = adapter
