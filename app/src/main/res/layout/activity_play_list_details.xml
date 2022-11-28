@@ -116,7 +116,7 @@
                 android:autoSizeTextType="uniform"
                 android:contentDescription="@string/shuffle_btn"
                 android:drawableTop="@drawable/remove_ic"
-                android:text="remove"
+                android:text="@string/remove_all"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>

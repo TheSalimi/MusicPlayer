@@ -10,7 +10,7 @@
         android:id="@+id/addToPlaylistBtn"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/add_ic"
+        android:src="@drawable/ic_baseline_done_24"
         android:background="@android:color/transparent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"

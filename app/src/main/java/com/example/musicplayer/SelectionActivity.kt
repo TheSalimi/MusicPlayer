@@ -12,23 +12,15 @@ import kotlinx.android.synthetic.main.activity_selection.*
 class SelectionActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySelectionBinding
     private lateinit var adapter : MusicAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySelectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         setRecyclerView()
-    }
+        binding.addToPlaylistBtn.setOnClickListener {finish()}
 
-    private fun setRecyclerView(){
-        selectionRV.setItemViewCacheSize(10)
-        selectionRV.setHasFixedSize(true)
-        selectionRV.layoutManager = LinearLayoutManager(this)
-        adapter = MusicAdapter( this , MainActivity.musicList , selectionActivity = true)
-        selectionRV.adapter = adapter
-    }
-
-    private fun setSearchView(){
+        //for search view
         searchView.setOnQueryTextListener(object  : SearchView.OnQueryTextListener{
             override fun onQueryTextSubmit(query: String?)=true
 
@@ -47,5 +39,13 @@ class SelectionActivity : AppCompatActivity() {
                 return true
             }
         })
+    }
+
+    private fun setRecyclerView(){
+        selectionRV.setItemViewCacheSize(10)
+        selectionRV.setHasFixedSize(true)
+        selectionRV.layoutManager = LinearLayoutManager(this)
+        adapter = MusicAdapter( this , MainActivity.musicList , selectionActivity = true)
+        selectionRV.adapter = adapter
     }
 }
