@@ -217,17 +217,28 @@ class MainActivity : AppCompatActivity() {
         val editor = getSharedPreferences("FAVORITES" , MODE_PRIVATE).edit()
         val jsonString = GsonBuilder().create().toJson(FavoritesActivity.favorieSongs)
         editor.putString("FavoriteSongs" , jsonString)
+
+        val jsonStringPlayList = GsonBuilder().create().toJson(playlistActivity.musicPlayList)
+        editor.putString("MusicPlayList" , jsonStringPlayList)
+
         editor.apply()
     }
 
     private fun getFromShardPrefrences(){
         FavoritesActivity.favorieSongs = ArrayList()
-        val editor = getSharedPreferences("FAVORITES" , MODE_PRIVATE)
+        val editor = getSharedPreferences( "FAVORITES" , MODE_PRIVATE)
         val typeToken = object : TypeToken<ArrayList<Music>>(){}.type
         val jsonString = editor.getString("FavoriteSongs" , null)
         if(jsonString != null){
             val data : ArrayList<Music> = GsonBuilder().create().fromJson(jsonString , typeToken)
             FavoritesActivity.favorieSongs.addAll(data)
+        }
+
+        playlistActivity.musicPlayList = MusicPlayList()
+        val jsonStringPlayList = editor.getString("MusicPlayList" , null)
+        if(jsonStringPlayList != null){
+            val dataPlayList : MusicPlayList = GsonBuilder().create().fromJson(jsonStringPlayList , MusicPlayList::class.java)
+            playlistActivity.musicPlayList = dataPlayList
         }
     }
 

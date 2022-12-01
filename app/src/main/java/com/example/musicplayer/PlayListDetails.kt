@@ -12,6 +12,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.adapter.MusicAdapter
 import com.example.musicplayer.databinding.ActivityPlayListDetailsBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_play_list_details.*
 
 class PlayListDetails : AppCompatActivity() {
@@ -78,5 +79,10 @@ class PlayListDetails : AppCompatActivity() {
             binding.shuffleInDetils.visibility = View.VISIBLE
         }
         adapter.notifyDataSetChanged()
+
+        val editor = getSharedPreferences( "FAVORITES" , MODE_PRIVATE).edit()
+        val jsonStringPlayList = GsonBuilder().create().toJson(playlistActivity.musicPlayList)
+        editor.putString("MusicPlayList" , jsonStringPlayList)
+        editor.apply()
     }
 }
