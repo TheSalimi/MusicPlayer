@@ -4,6 +4,7 @@ import android.content.Intent
 import android.media.MediaMetadataRetriever
 import android.net.Uri
 import androidx.core.content.ContextCompat
+import java.io.File
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
@@ -75,6 +76,16 @@ fun favoriteChecker(id: String): Int {
         }
     }
     return -1
+}
+
+fun checkPlayList(playList: ArrayList<Music>): ArrayList<Music>{
+    playList.forEachIndexed{ index, music ->
+        val file = File(music.path)
+        if(!file.exists()){
+            playList.removeAt(index)
+        }
+    }
+    return playList
 }
 
 

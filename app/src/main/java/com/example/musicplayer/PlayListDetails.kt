@@ -29,8 +29,8 @@ class PlayListDetails : AppCompatActivity() {
         setContentView(binding.root)
         binding.shuffleInDetils.visibility = View.INVISIBLE
         binding.backFromPlayListDetails.setOnClickListener { finish() }
-
         currentPlayListPosition = intent.extras?.get("index") as Int
+        playlistActivity.musicPlayList.ref[currentPlayListPosition].playList = checkPlayList(playlistActivity.musicPlayList.ref[currentPlayListPosition].playList)
         musics.setItemViewCacheSize(10)
         musics.setHasFixedSize(true)
         musics.layoutManager = LinearLayoutManager(this)

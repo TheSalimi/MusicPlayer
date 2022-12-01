@@ -27,6 +27,7 @@ class FavoritesActivity : AppCompatActivity() {
         favoritesList.setHasFixedSize(true)
         favoritesList.setItemViewCacheSize(13)
         favoritesList.layoutManager = GridLayoutManager(this , 2)
+        favorieSongs = checkPlayList(favorieSongs)
         adapter = FavoriteAdaptor(this, favorieSongs)
         favoritesList.adapter = adapter
         if(favoritesList.size!=0) songNameFav.isSelected = true
