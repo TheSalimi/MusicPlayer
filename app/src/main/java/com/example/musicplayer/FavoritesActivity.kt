@@ -6,15 +6,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.size
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.musicplayer.adapter.FavoriteAdaptor
 import com.example.musicplayer.databinding.ActivityFavoritesBinding
-import com.example.musicplayer.databinding.FavoriteViewBinding
 import kotlinx.android.synthetic.main.activity_favorites.*
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_player.*
-import kotlinx.android.synthetic.main.activity_player.view.*
 import kotlinx.android.synthetic.main.favorite_view.*
-import kotlinx.android.synthetic.main.favorite_view.view.*
 
 class FavoritesActivity : AppCompatActivity() {
     private  lateinit var binding : ActivityFavoritesBinding

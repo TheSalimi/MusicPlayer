@@ -1,18 +1,14 @@
 package com.example.musicplayer
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.musicplayer.adapter.PlayListViewAdapter
 import com.example.musicplayer.databinding.ActivityPlaylistBinding
 import com.example.musicplayer.databinding.AddPlaylistDialogBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_playlist.*
 import java.text.SimpleDateFormat
 import java.util.*

@@ -9,10 +9,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.musicplayer.adapter.MusicAdapter
 import com.example.musicplayer.databinding.ActivityPlayListDetailsBinding
-import com.example.musicplayer.databinding.ActivityPlaylistBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.activity_favorites.*
 import kotlinx.android.synthetic.main.activity_play_list_details.*
 
 class PlayListDetails : AppCompatActivity() {

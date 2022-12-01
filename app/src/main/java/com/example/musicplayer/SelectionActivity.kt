@@ -3,10 +3,9 @@ package com.example.musicplayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.SearchView
-import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.musicplayer.adapter.MusicAdapter
 import com.example.musicplayer.databinding.ActivitySelectionBinding
-import kotlinx.android.synthetic.main.activity_play_list_details.*
 import kotlinx.android.synthetic.main.activity_selection.*
 
 class SelectionActivity : AppCompatActivity() {

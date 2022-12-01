@@ -1,4 +1,4 @@
-package com.example.musicplayer
+package com.example.musicplayer.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -7,8 +7,9 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.musicplayer.Music
+import com.example.musicplayer.PlayerActivity
 import com.example.musicplayer.databinding.FavoriteViewBinding
-import com.example.musicplayer.databinding.MusicViewBinding
 
 class FavoriteAdaptor(private val context: Context, private var musicList: ArrayList<Music>) :
     RecyclerView.Adapter<FavoriteAdaptor.myHolder>() {
@@ -18,7 +19,7 @@ class FavoriteAdaptor(private val context: Context, private var musicList: Array
         val root = binding.root
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteAdaptor.myHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myHolder {
         return myHolder(FavoriteViewBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 

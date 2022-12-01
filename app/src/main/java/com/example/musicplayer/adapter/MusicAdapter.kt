@@ -1,4 +1,4 @@
-package com.example.musicplayer
+package com.example.musicplayer.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -7,9 +7,8 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import com.example.musicplayer.*
 import com.example.musicplayer.databinding.MusicViewBinding
-import kotlinx.coroutines.currentCoroutineContext
 
 class MusicAdapter(
     private val context: Context,
@@ -25,7 +24,7 @@ class MusicAdapter(
         val root = binding.root
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicAdapter.myHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myHolder {
         return myHolder(MusicViewBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 
@@ -45,9 +44,13 @@ class MusicAdapter(
             selectionActivity ->{
                 holder.root.setOnClickListener {
                     if(addSong(musicList[position]))
-                        holder.root.setBackgroundColor(ContextCompat.getColor(context , R.color.light_gray))
+                        holder.root.setBackgroundColor(ContextCompat.getColor(context ,
+                            R.color.light_gray
+                        ))
                     else
-                        holder.root.setBackgroundColor(ContextCompat.getColor(context  , R.color.white))
+                        holder.root.setBackgroundColor(ContextCompat.getColor(context  ,
+                            R.color.white
+                        ))
                 }
             }
             else -> {

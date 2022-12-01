@@ -1,4 +1,4 @@
-package com.example.musicplayer
+package com.example.musicplayer.adapter
 
 import android.content.Context
 import android.content.Intent
@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.musicplayer.*
 import com.example.musicplayer.databinding.PlaylistViewBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 
@@ -22,7 +23,7 @@ class PlayListViewAdapter(private val context: Context, private var playLists_li
         val root = binding.root
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlayListViewAdapter.myHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): myHolder {
         return myHolder(PlaylistViewBinding.inflate(LayoutInflater.from(context), parent, false))
     }
 
