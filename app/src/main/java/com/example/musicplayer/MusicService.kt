@@ -35,6 +35,12 @@ class MusicService : Service() {
     }
 
     fun showNotification(PlayPauseBTN : Int) {
+        val intent = Intent(
+            baseContext,
+            MainActivity::class.java
+        )
+        val contentIntent = PendingIntent.getActivity(this , 0 , intent , 0)
+
 
         val prevIntent = Intent(
             baseContext,
@@ -88,6 +94,7 @@ class MusicService : Service() {
         }
 
         val notifiction = NotificationCompat.Builder(baseContext, ApplicationClass.CHANNEL_ID)
+            .setContentIntent(contentIntent)
             .setContentTitle(PlayerActivity.musicListPA[PlayerActivity.songPosition].title)
             .setContentText(PlayerActivity.musicListPA[PlayerActivity.songPosition].artist)
             .setSmallIcon(R.drawable.splash_screen)
