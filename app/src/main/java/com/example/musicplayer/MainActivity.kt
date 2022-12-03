@@ -69,9 +69,9 @@ class MainActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.feedback -> Toast.makeText(this, "feedback", Toast.LENGTH_SHORT).show()
-                R.id.setting -> Toast.makeText(this, "setting", Toast.LENGTH_SHORT).show()
-                R.id.about -> Toast.makeText(this, "about", Toast.LENGTH_SHORT).show()
+                R.id.feedback -> startActivity(Intent(this@MainActivity , FeedBackActivity::class.java))
+                R.id.setting -> startActivity(Intent(this@MainActivity , SettingActivity::class.java))
+                R.id.about -> startActivity(Intent(this@MainActivity , AboutActivity::class.java))
                 R.id.exit -> {
                     val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle("Exit")
