@@ -64,7 +64,7 @@ class NowPlaying : Fragment() {
         PlayerActivity.isPlaying = true
         PlayerActivity.musicService!!.mediaPlayer!!.start()
         IsPlayingPLayOrPause.setIconResource(R.drawable.ic_pause)
-        PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause)
+        PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause,1F)
         PlayerActivity.binding.playPauseButton.setIconResource(R.drawable.ic_pause)
     }
 
@@ -72,7 +72,7 @@ class NowPlaying : Fragment() {
         PlayerActivity.isPlaying = false
         PlayerActivity.musicService!!.mediaPlayer!!.pause()
         IsPlayingPLayOrPause.setIconResource(R.drawable.ic_play)
-        PlayerActivity.musicService!!.showNotification(R.drawable.ic_play)
+        PlayerActivity.musicService!!.showNotification(R.drawable.ic_play,0F)
         PlayerActivity.binding.playPauseButton.setIconResource(R.drawable.ic_play)
     }
 
@@ -83,7 +83,7 @@ class NowPlaying : Fragment() {
             .into(IsPlayingImage)
         IsPlayingName.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].title
         IsPlayingArtistName.text = PlayerActivity.musicListPA[PlayerActivity.songPosition].artist
-        PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause)
+        PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause,1F)
         playMusic()
     }
 }

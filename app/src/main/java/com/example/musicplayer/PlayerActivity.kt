@@ -265,7 +265,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             musicService!!.mediaPlayer!!.prepare()
             musicService!!.mediaPlayer!!.start()
             playPauseButton.setIconResource(R.drawable.ic_pause)
-            musicService!!.showNotification(R.drawable.ic_pause)
+            musicService!!.showNotification(R.drawable.ic_pause , 1F)
 
             SeekBarStartTime.text =
                 formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
@@ -282,14 +282,14 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
     private fun playMusic() {
         playPauseButton.setIconResource(R.drawable.ic_pause)
-        musicService!!.showNotification(R.drawable.ic_pause)
+        musicService!!.showNotification(R.drawable.ic_pause , 1F)
         isPlaying = true
         musicService!!.mediaPlayer!!.start()
     }
 
     private fun pause() {
         playPauseButton.setIconResource(R.drawable.ic_play)
-        musicService!!.showNotification(R.drawable.ic_play)
+        musicService!!.showNotification(R.drawable.ic_play , 0F)
         isPlaying = false
         musicService!!.mediaPlayer!!.pause()
     }

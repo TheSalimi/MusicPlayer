@@ -3,11 +3,7 @@ package com.example.musicplayer
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.widget.Toast
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_player.*
-import kotlinx.android.synthetic.main.fragment_now_playing.*
-import kotlin.system.exitProcess
 
 class NotificatinReciever : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
@@ -24,7 +20,7 @@ class NotificatinReciever : BroadcastReceiver() {
     private fun playMusic(){
         PlayerActivity.isPlaying = true
         PlayerActivity.musicService!!.mediaPlayer!!.start()
-        PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause)
+        PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause,1F)
         PlayerActivity.binding.playPauseButton.setIconResource(R.drawable.ic_pause)
         NowPlaying.binding.IsPlayingPLayOrPause.setIconResource(R.drawable.ic_pause)
     }
@@ -32,7 +28,7 @@ class NotificatinReciever : BroadcastReceiver() {
     private fun pauseMusic(){
         PlayerActivity.isPlaying = false
         PlayerActivity.musicService!!.mediaPlayer!!.pause()
-        PlayerActivity.musicService!!.showNotification(R.drawable.ic_play)
+        PlayerActivity.musicService!!.showNotification(R.drawable.ic_play,0F)
         PlayerActivity.binding.playPauseButton.setIconResource(R.drawable.ic_play)
         NowPlaying.binding.IsPlayingPLayOrPause.setIconResource(R.drawable.ic_play)
     }
