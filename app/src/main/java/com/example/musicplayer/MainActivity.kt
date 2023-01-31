@@ -31,17 +31,22 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         lateinit var musicList: ArrayList<Music>
-        lateinit var musicListSearch : ArrayList<Music>
-        var search : Boolean =false
-        var themeIndex : Int = 0
-        val currentTheme = arrayOf(R.style.white , R.style.black)
-        val currentThemeNav = arrayOf(R.style.whiteNav , R.style.blackNav)
+        lateinit var musicListSearch: ArrayList<Music>
+        var search: Boolean = false
+        var themeIndex: Int = 0
+        val currentTheme = arrayOf(R.style.white, R.style.black)
+        val currentThemeNav = arrayOf(R.style.whiteNav, R.style.blackNav)
+        var sortOrder: Int = 0
+        val sortingList = arrayOf(
+            MediaStore.Audio.Media.DATE_ADDED + " DESC", MediaStore.Audio.Media.TITLE,
+            MediaStore.Audio.Media.SIZE + " DESC"
+        )
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val themeEditor = getSharedPreferences("THEMES" , MODE_PRIVATE)
-        themeIndex=themeEditor.getInt("themeIndex",0)
+        val themeEditor = getSharedPreferences("THEMES", MODE_PRIVATE)
+        themeIndex = themeEditor.getInt("themeIndex", 0)
         setTheme(currentThemeNav[themeIndex])
         requestRunTimePermission()
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -74,9 +79,19 @@ class MainActivity : AppCompatActivity() {
 
         navView.setNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.feedback -> startActivity(Intent(this@MainActivity , FeedBackActivity::class.java))
-                R.id.setting -> startActivity(Intent(this@MainActivity , SettingActivity::class.java))
-                R.id.about -> startActivity(Intent(this@MainActivity , AboutActivity::class.java))
+                R.id.feedback -> startActivity(
+                    Intent(
+                        this@MainActivity,
+                        FeedBackActivity::class.java
+                    )
+                )
+                R.id.setting -> startActivity(
+                    Intent(
+                        this@MainActivity,
+                        SettingActivity::class.java
+                    )
+                )
+                R.id.about -> startActivity(Intent(this@MainActivity, AboutActivity::class.java))
                 R.id.exit -> {
                     val builder = MaterialAlertDialogBuilder(this)
                     builder.setTitle("Exit")
@@ -140,6 +155,8 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun initialazation() {
         search = false
+        val sortEditor = getSharedPreferences("SORTING" , MODE_PRIVATE)
+        sortOrder = sortEditor.getInt("sortOrder",0)
         musicList = getAllAudio()
         recyclerView.setHasFixedSize(true)
         recyclerView.setItemViewCacheSize(13)
@@ -168,7 +185,7 @@ class MainActivity : AppCompatActivity() {
             projection,
             selection,
             null,
-            MediaStore.Audio.Media.DATE_ADDED + " DESC", null
+            sortingList[sortOrder], null
         )
         if (cursor != null) {
             if (cursor.moveToFirst()) {
@@ -215,34 +232,45 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        //for storing favorites data using shared prefrences
         putToShardPrefrences()
+        //for sorting
+        val sortEditor = getSharedPreferences("SORTING" , MODE_PRIVATE)
+        val sortValue = sortEditor.getInt("sortOrder",0)
+        if(sortOrder!=sortValue){
+            sortOrder = sortValue
+            musicList = getAllAudio()
+            musicAdapeter.updateMusicList(musicList)
+        }
+
     }
 
-    private fun putToShardPrefrences(){
-        val editor = getSharedPreferences("FAVORITES" , MODE_PRIVATE).edit()
+    private fun putToShardPrefrences() {
+        val editor = getSharedPreferences("FAVORITES", MODE_PRIVATE).edit()
         val jsonString = GsonBuilder().create().toJson(FavoritesActivity.favorieSongs)
-        editor.putString("FavoriteSongs" , jsonString)
+        editor.putString("FavoriteSongs", jsonString)
 
         val jsonStringPlayList = GsonBuilder().create().toJson(playlistActivity.musicPlayList)
-        editor.putString("MusicPlayList" , jsonStringPlayList)
+        editor.putString("MusicPlayList", jsonStringPlayList)
 
         editor.apply()
     }
 
-    private fun getFromShardPrefrences(){
+    private fun getFromShardPrefrences() {
         FavoritesActivity.favorieSongs = ArrayList()
-        val editor = getSharedPreferences( "FAVORITES" , MODE_PRIVATE)
-        val typeToken = object : TypeToken<ArrayList<Music>>(){}.type
-        val jsonString = editor.getString("FavoriteSongs" , null)
-        if(jsonString != null){
-            val data : ArrayList<Music> = GsonBuilder().create().fromJson(jsonString , typeToken)
+        val editor = getSharedPreferences("FAVORITES", MODE_PRIVATE)
+        val typeToken = object : TypeToken<ArrayList<Music>>() {}.type
+        val jsonString = editor.getString("FavoriteSongs", null)
+        if (jsonString != null) {
+            val data: ArrayList<Music> = GsonBuilder().create().fromJson(jsonString, typeToken)
             FavoritesActivity.favorieSongs.addAll(data)
         }
 
         playlistActivity.musicPlayList = MusicPlayList()
-        val jsonStringPlayList = editor.getString("MusicPlayList" , null)
-        if(jsonStringPlayList != null){
-            val dataPlayList : MusicPlayList = GsonBuilder().create().fromJson(jsonStringPlayList , MusicPlayList::class.java)
+        val jsonStringPlayList = editor.getString("MusicPlayList", null)
+        if (jsonStringPlayList != null) {
+            val dataPlayList: MusicPlayList =
+                GsonBuilder().create().fromJson(jsonStringPlayList, MusicPlayList::class.java)
             playlistActivity.musicPlayList = dataPlayList
         }
     }
@@ -251,17 +279,17 @@ class MainActivity : AppCompatActivity() {
         menuInflater.inflate(R.menu.search_menu, menu)
         val searchView =
             menu?.findItem(R.id.searchView)?.actionView as SearchView
-        searchView.setOnQueryTextListener(object  : SearchView.OnQueryTextListener{
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 musicListSearch = ArrayList()
-                if(newText!=null){
-                    val userInput=newText.lowercase()
-                    for(song in musicList){
-                        if(song.title.lowercase().contains(userInput)){
+                if (newText != null) {
+                    val userInput = newText.lowercase()
+                    for (song in musicList) {
+                        if (song.title.lowercase().contains(userInput)) {
                             musicListSearch.add(song)
                         }
                     }

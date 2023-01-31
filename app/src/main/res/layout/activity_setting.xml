@@ -18,6 +18,7 @@
         android:layout_margin="16dp"/>
 
     <com.google.android.material.imageview.ShapeableImageView
+        android:padding="2dp"
         android:id="@+id/blackTheme"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -30,6 +31,7 @@
         app:shapeAppearanceOverlay="@style/customRoundedImageView"/>
 
     <com.google.android.material.imageview.ShapeableImageView
+        android:padding="2dp"
         android:id="@+id/whiteTheme"
         android:layout_width="30dp"
         android:layout_height="30dp"
