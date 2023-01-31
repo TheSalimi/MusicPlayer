@@ -2,10 +2,10 @@ package com.example.musicplayer
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -25,12 +25,17 @@ class PlayListDetails : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         binding = ActivityPlayListDetailsBinding.inflate(layoutInflater)
+        setTheme(MainActivity.currentThemeNav[MainActivity.themeIndex])
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         binding.shuffleInDetils.visibility = View.INVISIBLE
         binding.backFromPlayListDetails.setOnClickListener { finish() }
         currentPlayListPosition = intent.extras?.get("index") as Int
-        playlistActivity.musicPlayList.ref[currentPlayListPosition].playList = checkPlayList(playlistActivity.musicPlayList.ref[currentPlayListPosition].playList)
+        try {
+            playlistActivity.musicPlayList.ref[currentPlayListPosition].playList =
+                checkPlayList(playlistActivity.musicPlayList.ref[currentPlayListPosition].playList)
+        }
+        catch (e: Exception){}
         musics.setItemViewCacheSize(10)
         musics.setHasFixedSize(true)
         musics.layoutManager = LinearLayoutManager(this)

@@ -1,9 +1,9 @@
 package com.example.musicplayer
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.size
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.musicplayer.adapter.FavoriteAdaptor
@@ -21,6 +21,7 @@ class FavoritesActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(MainActivity.currentThemeNav[MainActivity.themeIndex])
         binding = ActivityFavoritesBinding.inflate(layoutInflater)
         setContentView(binding.root)
         backButton.setOnClickListener { finish() }

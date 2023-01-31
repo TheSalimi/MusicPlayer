@@ -16,6 +16,7 @@ class FeedBackActivity : AppCompatActivity() {
     private lateinit var  binding : ActivityFeedBackBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(MainActivity.currentThemeNav[MainActivity.themeIndex])
         binding = ActivityFeedBackBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

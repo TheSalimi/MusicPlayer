@@ -11,6 +11,7 @@ class SettingActivity : AppCompatActivity() {
     private lateinit var binding : ActivitySettingBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(MainActivity.currentThemeNav[MainActivity.themeIndex])
         binding = ActivitySettingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.title = "Setting"
@@ -18,7 +19,7 @@ class SettingActivity : AppCompatActivity() {
 
         when(MainActivity.themeIndex){
             0 -> binding.whiteTheme.setBackgroundColor(Color.YELLOW)
-            1 -> binding.whiteTheme.setBackgroundColor(Color.YELLOW)
+            1 -> binding.blackTheme.setBackgroundColor(Color.YELLOW)
         }
 
         binding.whiteTheme.setOnClickListener { saveTheme(0) }

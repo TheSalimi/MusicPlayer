@@ -17,7 +17,6 @@
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/musicplayer_icon_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MusicPlayer"
         tools:targetApi="31">
         <activity
             android:name=".AboutActivity"
@@ -49,7 +48,6 @@
         <activity
             android:name=".SelectionActivity"
             android:exported="false"
-            android:theme="@style/Theme.MusicPlayerNoActionBar"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">
             <meta-data
@@ -60,7 +58,6 @@
             android:name=".PlayListDetails"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MusicPlayerNoActionBar"
             tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.lib_name"
@@ -70,7 +67,6 @@
             android:name=".playlistActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MusicPlayerNoActionBar"
             tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.lib_name"
@@ -80,7 +76,6 @@
             android:name=".FavoritesActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MusicPlayerNoActionBar"
             tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.lib_name"
@@ -90,7 +85,6 @@
             android:name=".PlayerActivity"
             android:exported="false"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.MusicPlayerNoActionBar"
             tools:ignore="LockedOrientationActivity">
             <meta-data
                 android:name="android.app.lib_name"

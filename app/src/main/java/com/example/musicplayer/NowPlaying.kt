@@ -2,16 +2,14 @@ package com.example.musicplayer
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.musicplayer.databinding.FragmentNowPlayingBinding
-import com.google.android.material.resources.CancelableFontCallback.ApplyFont
 import kotlinx.android.synthetic.main.fragment_now_playing.*
 
 class NowPlaying : Fragment() {
@@ -24,6 +22,7 @@ class NowPlaying : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        requireContext().theme.applyStyle(MainActivity.currentTheme[MainActivity.themeIndex] , true)
         val view = inflater.inflate(R.layout.fragment_now_playing, container, false)
         binding = FragmentNowPlayingBinding.bind(view)
         binding.root.visibility = View.INVISIBLE

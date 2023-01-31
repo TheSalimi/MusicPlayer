@@ -1,7 +1,7 @@
 package com.example.musicplayer
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.musicplayer.adapter.MusicAdapter
@@ -14,6 +14,7 @@ class SelectionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(MainActivity.currentThemeNav[MainActivity.themeIndex])
         binding = ActivitySelectionBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setRecyclerView()

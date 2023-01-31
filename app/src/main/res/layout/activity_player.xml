@@ -86,8 +86,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
-            android:backgroundTint="@color/white"
-            app:icon="@drawable/ic_previous" />
+            app:icon="@drawable/ic_previous"
+            android:backgroundTint="?attr/themeColor"/>
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/playPauseButton"
@@ -95,14 +95,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="?attr/themeColor"
             app:icon="@drawable/ic_play" />
 
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:id="@+id/nextBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="?attr/themeColor"
             app:icon="@drawable/ic_next" />
     </LinearLayout>
 
@@ -117,8 +117,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="16dp"
-            android:theme="@style/mySeekBar" />
+            android:layout_marginEnd="16dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -157,7 +156,7 @@
             android:id="@+id/timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
             android:contentDescription="@string/timer"
             android:src="@drawable/ic_timer"
             app:layout_constraintBottom_toTopOf="@id/timerTV"
@@ -180,7 +179,7 @@
             android:id="@+id/equalizer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
             android:contentDescription="@string/equalizer"
             android:src="@drawable/ic_equalizer"
             app:layout_constraintBottom_toTopOf="@id/EqualizerTV"
@@ -193,6 +192,8 @@
             android:layout_height="wrap_content"
             android:text="@string/equalizer"
             android:textSize="16sp"
+            app:tint = "?attr/themeColor"
+            android:backgroundTint="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/equalizer"
             app:layout_constraintStart_toStartOf="@id/equalizer" />
@@ -201,7 +202,7 @@
             android:id="@+id/repeat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
             android:contentDescription="@string/repeatsong"
             android:src="@drawable/ic_repeat"
             app:layout_constraintBottom_toTopOf="@id/RepeatTV"
@@ -235,7 +236,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:background="@android:color/transparent"
+            android:backgroundTint="@android:color/transparent"
             android:contentDescription="@string/share"
             android:src="@drawable/ic_baseline_share_24"
             app:layout_constraintBottom_toTopOf="@id/ShareTV"

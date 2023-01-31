@@ -1,9 +1,9 @@
 package com.example.musicplayer
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.musicplayer.adapter.PlayListViewAdapter
 import com.example.musicplayer.databinding.ActivityPlaylistBinding
@@ -12,7 +12,6 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.android.synthetic.main.activity_playlist.*
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class playlistActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPlaylistBinding
@@ -24,6 +23,7 @@ class playlistActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme(MainActivity.currentThemeNav[MainActivity.themeIndex])
         binding = ActivityPlaylistBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -48,10 +48,7 @@ class playlistActivity : AppCompatActivity() {
 
         val binder = AddPlaylistDialogBinding.bind(customDialog)
 
-        val builder = MaterialAlertDialogBuilder(
-            this,
-            R.style.MyThemeOverlay_MaterialComponents_MaterialAlertDialog
-        )
+        val builder = MaterialAlertDialogBuilder(this)
 
         builder.setView(customDialog)
             .setTitle("Playlist Details")

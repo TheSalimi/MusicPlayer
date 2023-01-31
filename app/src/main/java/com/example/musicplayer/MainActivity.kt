@@ -34,12 +34,15 @@ class MainActivity : AppCompatActivity() {
         lateinit var musicListSearch : ArrayList<Music>
         var search : Boolean =false
         var themeIndex : Int = 0
+        val currentTheme = arrayOf(R.style.white , R.style.black)
+        val currentThemeNav = arrayOf(R.style.whiteNav , R.style.blackNav)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val themeEditor = getSharedPreferences("THEMES" , MODE_PRIVATE)
         themeIndex=themeEditor.getInt("themeIndex",0)
+        setTheme(currentThemeNav[themeIndex])
         requestRunTimePermission()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
