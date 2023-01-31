@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.database.Cursor
 import android.graphics.Color
 import android.media.AudioManager
 import android.media.MediaPlayer
@@ -12,6 +13,7 @@ import android.media.audiofx.AudioEffect
 import android.net.Uri
 import android.os.Bundle
 import android.os.IBinder
+import android.provider.MediaStore
 import android.widget.SeekBar
 import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
@@ -19,6 +21,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.musicplayer.databinding.ActivityPlayerBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -49,7 +52,17 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         setTheme(MainActivity.currentThemeNav[MainActivity.themeIndex])
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        initializeLayout()
+        if(intent.data?.scheme.contentEquals("content")){
+            startService()
+            musicListPA = ArrayList()
+            musicListPA.add(getMusicDetails(intent.data!!))
+            Glide.with(this)
+                .load(getImgArt(musicListPA[songPosition].path))
+                .apply(RequestOptions().placeholder(R.drawable.music_splash).centerCrop())
+                .into(binding.musicPic)
+            songName.text = musicListPA[songPosition].title
+        }
+        else initializeLayout()
 
         BackToPreviousPageBtn.setOnClickListener { finish() }
 
@@ -230,9 +243,11 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
     private fun setLayout() {
         fIndex = favoriteChecker(musicListPA[songPosition].id)
-        Glide.with(this).load(musicListPA[songPosition].artUri)
-            .into(musicPic)
-        songName.text = musicListPA[songPosition].title.toString()
+        Glide.with(this)
+            .load(musicListPA[songPosition].artUri)
+            .apply(RequestOptions().placeholder(R.drawable.music_splash).centerCrop())
+            .into(binding.musicPic)
+        songName.text = musicListPA[songPosition].title
         if (repeatSong) repeat.setColorFilter(ContextCompat.getColor(this, R.color.gray))
         if (_15min || _60min || _30min)
             timer.setColorFilter(ContextCompat.getColor(this, R.color.gray))
@@ -357,4 +372,32 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             dialog.dismiss()
         }
     }
+
+    private fun getMusicDetails(contentUri:Uri) : Music{
+        var cursor : Cursor?=null
+        try{
+            val projection = arrayOf(MediaStore.Audio.Media.DATA , MediaStore.Audio.Media.DURATION)
+            cursor = this.contentResolver.query(contentUri , projection , null , null , null)
+            val dataColumn = cursor?.getColumnIndexOrThrow(MediaStore.Audio.Media.DATA)
+            val durationColumn = cursor?.getColumnIndexOrThrow(MediaStore.Audio.Media.DURATION)
+            cursor!!.moveToFirst()
+            val path = dataColumn?.let{
+                cursor.getString(it)
+            }
+            val duration = durationColumn?.let{cursor.getLong(it)}!!
+
+            return Music(id = "Unknown" , title = path.toString() , album = "Unknown",
+            artist = "Unknown" , duration = duration ,
+            artUri = "Unknown", path = path.toString())
+        }
+        finally {
+            cursor?.close()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if(musicListPA[songPosition].id == "Unknown" && !isPlaying) exitApplication()
+    }
+
 }
