@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.Menu
@@ -13,6 +12,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,11 +33,13 @@ class MainActivity : AppCompatActivity() {
         lateinit var musicList: ArrayList<Music>
         lateinit var musicListSearch : ArrayList<Music>
         var search : Boolean =false
+        var themeIndex : Int = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        val themeEditor = getSharedPreferences("THEMES" , MODE_PRIVATE)
+        themeIndex=themeEditor.getInt("themeIndex",0)
         requestRunTimePermission()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)

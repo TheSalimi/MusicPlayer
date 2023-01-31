@@ -10,26 +10,20 @@ import android.media.AudioManager
 import android.media.MediaPlayer
 import android.media.audiofx.AudioEffect
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.IBinder
-import android.provider.MediaStore.Audio.Media
-import android.text.BoringLayout
 import android.widget.SeekBar
-import android.widget.SeekBar.*
+import android.widget.SeekBar.OnSeekBarChangeListener
 import android.widget.Toast
-import androidx.annotation.BoolRes
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ServiceCompat
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.musicplayer.databinding.ActivityPlayerBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_player.*
 import kotlinx.android.synthetic.main.bottom_sheet_dialog.*
-import kotlin.system.exitProcess
 
 class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCompletionListener {
 
@@ -54,7 +48,6 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         super.onCreate(savedInstanceState)
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
         initializeLayout()
 
         BackToPreviousPageBtn.setOnClickListener { finish() }
@@ -246,7 +239,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         else addToFavorites.setImageResource(R.drawable.ic_fav24)
     }
 
-    fun creatMediaPlayer() {
+    private fun creatMediaPlayer() {
         try {
             if (musicService!!.mediaPlayer == null)
                 musicService!!.mediaPlayer = MediaPlayer()
@@ -255,7 +248,6 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             musicService!!.mediaPlayer!!.setDataSource(musicListPA[songPosition].path)
             musicService!!.mediaPlayer!!.prepare()
             musicService!!.mediaPlayer!!.start()
-            isPlaying = true
             playPauseButton.setIconResource(R.drawable.ic_pause)
             musicService!!.showNotification(R.drawable.ic_pause)
 
@@ -266,6 +258,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             SeekBar.max = musicService!!.mediaPlayer!!.duration
             musicService!!.mediaPlayer!!.setOnCompletionListener(this)
             nowPlayingId = musicListPA[songPosition].id
+            playMusic()
         } catch (E: java.lang.Exception) {
             return
         }
