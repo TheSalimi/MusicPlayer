@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PlayListDetails"
-    android:background="@drawable/gradiantfordark">
+>
 
     <RelativeLayout
         android:id="@+id/RV_layout"
@@ -13,8 +13,7 @@
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:paddingBottom="20dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/playListImageInDetails"
@@ -29,11 +28,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="60dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:background="@drawable/gradiantfordark"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
             android:layout_below="@id/playListImageInDetails"
             android:scrollbarThumbVertical="@drawable/ic_scrollbar"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            />
 
         <LinearLayout
             android:id="@+id/linearLayoutDetails"

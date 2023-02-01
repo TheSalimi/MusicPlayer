@@ -13,7 +13,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/musicplayer_icon"
-        android:label="@string/app_name"
+        android:label="SalSong"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/musicplayer_icon_round"
         android:supportsRtl="true"
