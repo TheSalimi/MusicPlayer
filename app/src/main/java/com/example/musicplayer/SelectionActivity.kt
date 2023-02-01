@@ -42,7 +42,7 @@ class SelectionActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView(){
-        selectionRV.setItemViewCacheSize(10)
+        selectionRV.setItemViewCacheSize(100)
         selectionRV.setHasFixedSize(true)
         selectionRV.layoutManager = LinearLayoutManager(this)
         adapter = MusicAdapter( this , MainActivity.musicList , selectionActivity = true)

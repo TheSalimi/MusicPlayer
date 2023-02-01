@@ -20,6 +20,8 @@ class FeedBackActivity : AppCompatActivity() {
         binding = ActivityFeedBackBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        actionBar?.title = "Feedback";
+        supportActionBar?.title = "Feedback";
         binding.feedbackSend.setOnClickListener {
             val feedbackMsg = feedbackText.text.toString() + "\n" + feedbackEmail.text.toString()
             val subject  = feedbackTopic.text.toString()

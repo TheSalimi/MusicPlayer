@@ -3,7 +3,6 @@ package com.example.musicplayer
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,8 +27,6 @@ class PlayListDetails : AppCompatActivity() {
         setTheme(MainActivity.currentThemeNav[MainActivity.themeIndex])
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-        binding.shuffleInDetils.visibility = View.INVISIBLE
-        binding.backFromPlayListDetails.setOnClickListener { finish() }
         currentPlayListPosition = intent.extras?.get("index") as Int
         try {
             playlistActivity.musicPlayList.ref[currentPlayListPosition].playList =
@@ -41,14 +38,10 @@ class PlayListDetails : AppCompatActivity() {
         musics.layoutManager = LinearLayoutManager(this)
         adapter = MusicAdapter( this , playlistActivity.musicPlayList.ref[currentPlayListPosition].playList , true)
         binding.musics.adapter = adapter
-        binding.playListName.isSelected = true
 
-        binding.shuffleInDetils.setOnClickListener {
-            val intent = Intent(this , PlayerActivity::class.java)
-            intent.putExtra("index" , 0)
-            intent.putExtra("class" , "PlaylistDetailsShuffle")
-            startActivity(intent)
-        }
+        val playListName = playlistActivity.musicPlayList.ref[currentPlayListPosition].name
+        actionBar?.title = playListName;
+        supportActionBar?.title = playListName;
 
         binding.addBtn.setOnClickListener {
             startActivity(Intent( this , SelectionActivity::class.java))
@@ -75,13 +68,11 @@ class PlayListDetails : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        binding.playListName.text = playlistActivity.musicPlayList.ref[currentPlayListPosition].name
         if(adapter.itemCount>0){
             Glide.with(this)
                 .load(playlistActivity.musicPlayList.ref[currentPlayListPosition].playList[0].artUri)
                 .apply(RequestOptions().placeholder(R.drawable.music_splash).centerCrop())
                 .into(binding.playListImageInDetails)
-            binding.shuffleInDetils.visibility = View.VISIBLE
         }
         adapter.notifyDataSetChanged()
 
@@ -89,5 +80,9 @@ class PlayListDetails : AppCompatActivity() {
         val jsonStringPlayList = GsonBuilder().create().toJson(playlistActivity.musicPlayList)
         editor.putString("MusicPlayList" , jsonStringPlayList)
         editor.apply()
+
+        val playListName = playlistActivity.musicPlayList.ref[currentPlayListPosition].name
+        actionBar?.title = playListName;
+        supportActionBar?.title = playListName;
     }
 }
