@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FavoritesActivity">
+    tools:context=".FavoritesActivity"
+    android:background="@drawable/gradiantfordark">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favoritesList"
@@ -25,6 +26,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:icon="@drawable/ic_shuffle"
         android:layout_margin="16dp"
-        android:backgroundTint="@color/white"
-        app:elevation="15dp"/>
+        app:elevation="15dp"
+        android:backgroundTint="?attr/themeColor"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

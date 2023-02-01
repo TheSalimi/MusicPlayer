@@ -58,7 +58,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             musicListPA.add(getMusicDetails(intent.data!!))
             Glide.with(this)
                 .load(getImgArt(musicListPA[songPosition].path))
-                .apply(RequestOptions().placeholder(R.drawable.music_splash).centerCrop())
+                .apply(RequestOptions().centerCrop())
                 .into(binding.musicPic)
             songName.text = musicListPA[songPosition].title
         }
@@ -331,7 +331,7 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
         NowPlaying.binding.IsPlayingName.isSelected = true
         Glide.with(applicationContext)
             .load(musicListPA[songPosition].artUri)
-            .apply(RequestOptions().placeholder(R.drawable.music_splash).centerCrop())
+            .apply(RequestOptions().centerCrop())
             .into(NowPlaying.binding.IsPlayingImage)
         NowPlaying.binding.IsPlayingName.text = musicListPA[songPosition].title
     }

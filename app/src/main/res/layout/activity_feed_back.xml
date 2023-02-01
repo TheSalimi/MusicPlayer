@@ -5,13 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_margin="16dp"
-    tools:context=".FeedBackActivity">
+    android:padding="16dp"
+    tools:context=".FeedBackActivity"
+    android:background="@drawable/gradiantfordark">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/feedbackTopic"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:textColorHint="@color/black"
         android:hint="Topic i.e. Suggestion , Error , etc"
         android:inputType="textEmailSubject"
         android:gravity="center|start"/>
@@ -19,6 +21,8 @@
         android:id="@+id/feedbackEmail"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        android:textColorHint="@color/black"
+
         android:inputType="textEmailAddress"
         android:hint="Email Address(Optional)"
         android:gravity="center|start"/>
@@ -26,6 +30,8 @@
         android:id="@+id/feedbackText"
         android:layout_width="match_parent"
         android:layout_height="250dp"
+        android:textColorHint="@color/black"
+
         android:hint="@string/feedback"
         android:gravity="top"/>
 
