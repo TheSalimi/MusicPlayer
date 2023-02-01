@@ -125,14 +125,13 @@ class MusicService : Service()  , AudioManager.OnAudioFocusChangeListener {
 
     fun creatMediaPlayer() {
         try {
-            if (PlayerActivity.musicService!!.mediaPlayer == null)
-                PlayerActivity.musicService!!.mediaPlayer = MediaPlayer()
+            if (mediaPlayer == null) mediaPlayer = MediaPlayer()
 
             PlayerActivity.musicService!!.mediaPlayer!!.reset()
             PlayerActivity.musicService!!.mediaPlayer!!.setDataSource(PlayerActivity.musicListPA[PlayerActivity.songPosition].path)
             PlayerActivity.musicService!!.mediaPlayer!!.prepare()
             PlayerActivity.binding.playPauseButton.setIconResource(R.drawable.ic_pause)
-            PlayerActivity.musicService!!.showNotification(R.drawable.ic_pause , 0F)
+            showNotification(R.drawable.ic_pause , 0F)
 
             PlayerActivity.binding.SeekBarStartTime.text = formatDuration(mediaPlayer!!.currentPosition.toLong())
             PlayerActivity.binding.SeekBarEndTime.text = formatDuration(mediaPlayer!!.duration.toLong())
@@ -163,13 +162,13 @@ class MusicService : Service()  , AudioManager.OnAudioFocusChangeListener {
             PlayerActivity.isPlaying = false
             mediaPlayer!!.pause()
         }
-        else{
+        /*else{
             //play music
             PlayerActivity.binding.playPauseButton.setIconResource(R.drawable.ic_pause)
             NowPlaying.binding.IsPlayingPLayOrPause.setIconResource(R.drawable.ic_pause)
             showNotification(R.drawable.ic_pause , 1F)
             PlayerActivity.isPlaying = true
             mediaPlayer!!.start()
-        }
+        }*/
     }
 }

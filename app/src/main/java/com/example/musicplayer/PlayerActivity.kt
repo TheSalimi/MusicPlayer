@@ -205,11 +205,11 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             }
             "NowPlaying" -> {
                 setLayout()
-                SeekBarStartTime.text =
+                binding.SeekBarStartTime.text =
                     formatDuration(musicService!!.mediaPlayer!!.currentPosition.toLong())
-                SeekBarEndTime.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
-                SeekBar.progress = musicService!!.mediaPlayer!!.currentPosition
-                SeekBar.max = musicService!!.mediaPlayer!!.duration
+                binding.SeekBarEndTime.text = formatDuration(musicService!!.mediaPlayer!!.duration.toLong())
+                binding.SeekBar.progress = musicService!!.mediaPlayer!!.currentPosition
+                binding.SeekBar.max = musicService!!.mediaPlayer!!.duration
                 if (isPlaying) playPauseButton.setIconResource(R.drawable.ic_pause)
                 else playPauseButton.setIconResource(R.drawable.ic_play)
             }
@@ -239,6 +239,9 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
                 setLayout()
             }
         }
+        if(musicService!=null &&  !isPlaying) {
+            playMusic()
+        }
     }
 
     private fun setLayout() {
@@ -257,13 +260,11 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
 
     private fun creatMediaPlayer() {
         try {
-            if (musicService!!.mediaPlayer == null)
-                musicService!!.mediaPlayer = MediaPlayer()
+            if (musicService!!.mediaPlayer == null) musicService!!.mediaPlayer = MediaPlayer()
 
             musicService!!.mediaPlayer!!.reset()
             musicService!!.mediaPlayer!!.setDataSource(musicListPA[songPosition].path)
             musicService!!.mediaPlayer!!.prepare()
-            musicService!!.mediaPlayer!!.start()
             playPauseButton.setIconResource(R.drawable.ic_pause)
             musicService!!.showNotification(R.drawable.ic_pause , 1F)
 
@@ -275,23 +276,23 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
             musicService!!.mediaPlayer!!.setOnCompletionListener(this)
             nowPlayingId = musicListPA[songPosition].id
             playMusic()
-        } catch (E: java.lang.Exception) {
-            return
+        } catch (E: Exception) {
+            Toast.makeText(this , E.toString() , Toast.LENGTH_LONG).show()
         }
     }
 
     private fun playMusic() {
-        playPauseButton.setIconResource(R.drawable.ic_pause)
-        musicService!!.showNotification(R.drawable.ic_pause , 1F)
         isPlaying = true
         musicService!!.mediaPlayer!!.start()
+        playPauseButton.setIconResource(R.drawable.ic_pause)
+        musicService!!.showNotification(R.drawable.ic_pause , 1F)
     }
 
     private fun pause() {
-        playPauseButton.setIconResource(R.drawable.ic_play)
-        musicService!!.showNotification(R.drawable.ic_play , 0F)
         isPlaying = false
         musicService!!.mediaPlayer!!.pause()
+        playPauseButton.setIconResource(R.drawable.ic_play)
+        musicService!!.showNotification(R.drawable.ic_play , 0F)
     }
 
     private fun preOrNextSong(increment: Boolean) {
@@ -307,13 +308,14 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
     }
 
     override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
-        val binder = service as MusicService.MyBinder
-        musicService = binder.currentService()
+        if(musicService == null) {
+            val binder = service as MusicService.MyBinder
+            musicService = binder.currentService()
+            musicService!!.audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            musicService!!.audioManager.requestAudioFocus(musicService , AudioManager.STREAM_MUSIC , AudioManager.AUDIOFOCUS_GAIN)
+        }
         creatMediaPlayer()
-        musicService!!.seekBarSetup()
-        musicService!!.audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-        musicService!!.audioManager.requestAudioFocus(musicService , AudioManager.STREAM_MUSIC , AudioManager.AUDIOFOCUS_GAIN)
-    }
+        musicService!!.seekBarSetup() }
 
     override fun onServiceDisconnected(name: ComponentName?) {
         musicService = null
@@ -322,11 +324,16 @@ class PlayerActivity : AppCompatActivity(), ServiceConnection, MediaPlayer.OnCom
     override fun onCompletion(mp: MediaPlayer?) {
         setSongPosition(true)
         creatMediaPlayer()
-        try {
-            setLayout()
-        } catch (e: Exception) {
-            return
-        }
+        setLayout()
+
+        //for refreshing now playing image and text on song completion
+
+        NowPlaying.binding.IsPlayingName.isSelected = true
+        Glide.with(applicationContext)
+            .load(musicListPA[songPosition].artUri)
+            .apply(RequestOptions().placeholder(R.drawable.music_splash).centerCrop())
+            .into(NowPlaying.binding.IsPlayingImage)
+        NowPlaying.binding.IsPlayingName.text = musicListPA[songPosition].title
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
