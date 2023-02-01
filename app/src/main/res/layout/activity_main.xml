@@ -9,7 +9,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="?attr/themeColor">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -47,7 +48,8 @@
                 android:layout_gravity="bottom"
                 android:gravity="center"
                 android:orientation="horizontal"
-                android:elevation="5dp">
+                android:elevation="5dp"
+                android:background="?attr/themeColor">
 
                 <Button
                     android:id="@+id/favoriteButton"

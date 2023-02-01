@@ -6,43 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".PlayListDetails">
 
-    <ImageButton
-        android:id="@+id/backFromPlayListDetails"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_margin="16dp"
-        android:background="@android:color/transparent"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/playListName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="44dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="@string/playlist"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:singleLine="true"
-        android:ellipsize="marquee"
-        app:layout_constraintBottom_toBottomOf="@id/backFromPlayListDetails"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/backFromPlayListDetails" />
-
     <RelativeLayout
         android:id="@+id/RV_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="10dp"
-        app:layout_constraintTop_toBottomOf="@id/playListName"
-        android:paddingBottom="60dp">
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingBottom="20dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/playListImageInDetails"
@@ -62,20 +33,6 @@
             android:layout_below="@id/playListImageInDetails"
             android:scrollbarThumbVertical="@drawable/ic_scrollbar"
             android:scrollbars="vertical" />
-
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/shuffleInDetils"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@id/linearLayoutDetails"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
-            app:icon="@drawable/ic_shuffle"
-            app:iconTint="?attr/themeColor"
-            android:backgroundTint="@color/white"
-            app:strokeWidth="1dp"
-            app:strokeColor="?attr/themeColor"/>
 
         <LinearLayout
             android:id="@+id/linearLayoutDetails"
@@ -97,9 +54,6 @@
                 android:layout_margin="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1"
-                android:autoSizeMaxTextSize="16sp"
-                android:autoSizeMinTextSize="8sp"
-                android:autoSizeTextType="uniform"
                 android:contentDescription="@string/shuffle_btn"
                 android:drawableTop="@drawable/add_ic"
                 android:text="Add"
@@ -114,9 +68,6 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:layout_weight="1"
-                android:autoSizeMaxTextSize="16sp"
-                android:autoSizeMinTextSize="8sp"
-                android:autoSizeTextType="uniform"
                 android:contentDescription="@string/shuffle_btn"
                 android:drawableTop="@drawable/remove_ic"
                 android:text="@string/remove_all"

@@ -1,8 +1,10 @@
 package com.example.musicplayer
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.musicplayer.adapter.PlayListViewAdapter
@@ -26,11 +28,9 @@ class playlistActivity : AppCompatActivity() {
         setTheme(MainActivity.currentThemeNav[MainActivity.themeIndex])
         binding = ActivityPlaylistBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        actionBar?.title = "Playlist";
+        supportActionBar?.title = "Playlist";
         initializeRecyclerView(musicPlayList.ref)
-        backFromPlayList.setOnClickListener {
-            finish()
-        }
         addPlayListBtn.setOnClickListener { customAlertDialog() }
     }
 
@@ -60,14 +60,18 @@ class playlistActivity : AppCompatActivity() {
                     }
                 }
                 dialog.dismiss()
-            }.show()
+            }
+
+        val customD = builder.create()
+        customD.show()
+        customD.getButton((AlertDialog.BUTTON_POSITIVE)).setTextColor(Color.RED)
     }
 
     private fun addPlayList(name: String) {
         var playListExists = false
 
         for (i in musicPlayList.ref) {
-            if (name.equals(i.name)) {
+            if (name == i.name) {
                 playListExists = true
                 break
             }

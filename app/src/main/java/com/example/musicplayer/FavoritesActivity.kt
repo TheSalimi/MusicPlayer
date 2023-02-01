@@ -22,9 +22,10 @@ class FavoritesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme(MainActivity.currentThemeNav[MainActivity.themeIndex])
+        actionBar?.title = "Favorites";
+        supportActionBar?.title = "Favorites";
         binding = ActivityFavoritesBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        backButton.setOnClickListener { finish() }
         favoritesList.setHasFixedSize(true)
         favoritesList.setItemViewCacheSize(13)
         favoritesList.layoutManager = GridLayoutManager(this , 2)
