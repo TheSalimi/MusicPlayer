@@ -9,3 +9,5 @@
 ![grayMode](https://user-images.githubusercontent.com/108394058/216420528-b0bc8428-8d9c-4902-ae68-a7c59958ba74.jpg)
 ## Menu(in gray mode)
 ![grayModeMenu](https://user-images.githubusercontent.com/108394058/216420620-cb3590a2-9d7f-4e41-b47e-b0c3feb35553.jpg)
+## Notification
+![notif](https://user-images.githubusercontent.com/108394058/218304865-66f4edc0-62ef-4002-ac5b-e683288511b6.jpg)
